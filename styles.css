@@ -1,0 +1,481 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+header button {
+    padding: 10px 15px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+header button:hover {
+    background-color: #777;
+}
+
+.calendar-container {
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.calendar-header button {
+    padding: 8px 12px;
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.calendar-header button:hover {
+    background-color: #ccc;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #555;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day {
+    padding: 15px;
+    border: 1px solid #eee;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.day:hover {
+    background-color: #e0e0e0;
+}
+
+.day.has-meal {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.day.has-meal:hover {
+    background-color: #c1e1d1;
+}
+
+.day-content {
+    margin-top: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.dish-library {
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.dish-library h2 {
+    font-size: 1.3em;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.dish-library ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.dish-library li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.dish-library li:last-child {
+    border-bottom: none;
+}
+
+.dish-library input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.dish-library button {
+    padding: 10px 15px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.dish-library button:hover {
+    background-color: #4cae4c;
+}
+
+.add-meal-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Ensure it's on top */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #888;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.modal-content button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+/* ... other styles ... */
+
+.dish-library-management {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.dish-library-management h2 {
+    font-size: 1.3em;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+#dishListManagement {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#dishListManagement li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#dishListManagement li:last-child {
+    border-bottom: none;
+}
+
+#dishListManagement li button.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+#dishListManagement li button.delete-button:hover {
+    background-color: #c82333;
+}
+
+.add-new-dish-form {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.add-new-dish-form input[type="text"],
+.add-new-dish-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.add-new-dish-form button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.add-new-dish-form button:hover {
+    background-color: #0056b3;
+}
+
+
+#dishListManagement li button.edit-button {
+    background-color: #007bff; /* A primary blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-right: 5px; /* Add some spacing between buttons */
+    transition: background-color 0.3s ease;
+}
+
+#dishListManagement li button.edit-button:hover {
+    background-color: #0056b3; /* A darker shade for hover effect */
+}
+
+#dishListManagement li button.delete-button {
+    background-color: #dc3545; /* A danger red color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+#dishListManagement li button.delete-button:hover {
+    background-color: #c82333; /* A darker shade for hover effect */
+}
+
+#dishListManagement li > div { /* Style the button container */
+    display: flex;
+    gap: 5px; /* Space between buttons */
+}
+
+
+.edit-dish-modal .modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555; /* Darker text for better readability */
+}
+
+.edit-dish-modal .modal-content input[type="text"],
+
+.edit-dish-modal .modal-content textarea {
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Ensure padding and border are inside the element's width/height */
+}
+
+.edit-dish-modal .modal-content input[type="text"]:focus,
+.edit-dish-modal .modal-content textarea:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle focus shadow */
+}
+
+.edit-dish-modal .modal-content textarea {
+    min-height: 80px; /* Give the textarea a reasonable default height */
+}
+
+.edit-dish-modal button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.edit-dish-modal button:hover {
+    background-color: #0056b3;
+}
+
+
+
+#dishListManagement {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#dishListManagement li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #ddd;
+    display: flex; /* Keep flex for name and buttons */
+    align-items: baseline; /* Align name and ingredients at the baseline */
+    font-size: 1em;
+}
+
+#dishListManagement li:last-child {
+    border-bottom: none;
+}
+
+/* Style the dish name part */
+#dishListManagement li span.dish-name {
+    font-weight: bold;
+    color: #333;
+    margin-right: 1px; /* Adjust spacing between name and ingredients */
+    flex-shrink: 0; /* Prevent name from shrinking */
+    width: 250px; /* Increased width to give the dish name more space */
+}
+
+/* Style the ingredients part */
+#dishListManagement li span.ingredients {
+    color: #777;
+    font-style: italic;
+    white-space: pre-wrap; /* Allow ingredients to wrap to the next line */
+    word-break: break-word; /* Prevent long words from breaking layout */
+    margin-left: 20px; /* Adjust margin-left to be slightly larger than the width */
+}
+
+#dishListManagement li > div { /* Style the button container */
+    display: flex;
+    gap: 5px;
+    margin-left: auto; /* Push buttons to the right */
+}
+
+
+.add-new-dish-form input[type="text"],
+.add-new-dish-form textarea {
+    padding: 8px; /* Increase padding for better spacing */
+    border: 1px solid #aaa; /* Use a slightly darker, more refined border */
+    border-radius: 8px; /* Increase border-radius for softer corners */
+    font-size: 1.1em; /* Slightly increase font size for better readability */
+    margin-bottom: 15px; /* Add some margin below each input/textarea */
+    box-sizing: border-box; /* Ensure padding and border are inside the element's width/height */
+    width: calc(100% - 24px); /* Adjust width for padding and border */
+}
+
+.add-new-dish-form input[type="text"]:focus,
+.add-new-dish-form textarea:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 7px rgba(0, 123, 255, 0.3); /* Add a subtle, softer focus shadow */
+}
+
+.add-new-dish-form textarea {
+    min-height: 70px; /* Adjust as needed */
+}
+.edit-dish-modal .modal-content textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.2em; /* Increased font size specifically for this textarea */
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+.edit-dish-modal .modal-content textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+

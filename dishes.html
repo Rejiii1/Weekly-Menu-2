@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Dish Library</h1>
+        <button onclick="window.location.href='index.html'">Back to Planner</button>
+    </header>
+
+    <div class="dish-library-management">
+        <h2>Current Dishes</h2>
+        <ul id="dishListManagement">
+            </ul>
+
+        <h2>Add New Dish</h2>
+        <div class="add-new-dish-form">
+            <input type="text" id="newDishName" placeholder="Dish Name">
+            <textarea id="newDishIngredients" placeholder="Ingredients (comma-separated)"></textarea>
+            <button id="addDishWithIngredientsButton">Add Dish</button>
+        </div>
+
+        <div id="editDishModal" class="edit-dish-modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeEditModal">&times;</span>
+                <h3>Edit Dish</h3>
+                <label for="editDishName">Dish Name:</label>
+                <input type="text" id="editDishName">
+                <label for="editDishIngredients">Ingredients (comma-separated):</label>
+                <textarea id="editDishIngredients"></textarea>
+                <button id="saveEditedDishButton">Save Changes</button>
+                <input type="hidden" id="currentDishName">
+            </div>
+        </div>
+    </div>
+
+    <script src="dishes.js"></script>
+</body>
+</html>
