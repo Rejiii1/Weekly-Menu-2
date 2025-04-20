@@ -1,212 +1,213 @@
+<style>
 /* style.css */
 
 /* Style for the clickable Dish Library heading */
 .dish-library h2#dishLibraryLink {
-    cursor: pointer;
-    display: inline-block;
-    padding: 8px 12px; /* Adjust padding as needed */
-    border: 1px solid #555; /* Use a color that fits your header buttons */
-    background-color: #f8f8f8; /* Light background, similar to header hover */
-    color: #333; /* Dark text */
-    border-radius: 5px; /* Match button border-radius */
-    font-size: 1.1em; /* Slightly larger than the regular h2 */
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-    text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  background-color: #f8f8f8;
+  color: #333;
+  border-radius: 5px;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
 }
 
 .dish-library h2#dishLibraryLink:hover {
-    background-color: #ddd; /* Match header button hover */
-    color: #333;
-    transform: scale(1.02); /* Slight scale on hover */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ddd;
+  color: #333;
+  transform: scale(1.02);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .dish-library h2#dishLibraryLink:active {
-    transform: scale(0.98);
+  transform: scale(0.98);
 }
 
 /* Keep your existing styles below */
 body {
-    font-family: sans-serif;
-    margin: 20px;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+  font-family: sans-serif;
+  margin: 20px;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding: 15px 20px;
-    background-color: #333;
-    color: white;
-    border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 15px 20px;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 2em;
+  margin: 0;
+  font-size: 2em;
 }
 
 header button {
-    padding: 10px 15px;
-    background-color: #555;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+  padding: 10px 15px;
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 header button:hover {
-    background-color: #777;
+  background-color: #777;
 }
 
 .calendar-container {
-    margin-bottom: 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  margin-bottom: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 0 10px;
 }
 
 .calendar-header button {
-    padding: 8px 12px;
-    background-color: #ddd;
-    color: #333;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
+  padding: 8px 12px;
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
 }
 
 .calendar-header button:hover {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 
 .calendar-header h2 {
-    margin: 0;
-    font-size: 1.5em;
-    color: #555;
+  margin: 0;
+  font-size: 1.5em;
+  color: #555;
 }
 
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
 }
 
 .day {
-    padding: 15px;
-    border: 1px solid #eee;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    transition: background-color 0.2s ease;
+  padding: 15px;
+  border: 1px solid #eee;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
 }
 
 .day:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 .day.has-meal {
-    background-color: #d4edda;
-    color: #155724;
-    border-color: #c3e6cb;
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
 }
 
 .day.has-meal:hover {
-    background-color: #c1e1d1;
+  background-color: #c1e1d1;
 }
 
 .day-content {
-    margin-top: 8px;
-    font-size: 0.9em;
-    font-weight: bold;
+  margin-top: 8px;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 .dish-library {
-    margin-bottom: 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  margin-bottom: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .dish-library h2 {
-    font-size: 1.3em;
-    color: #555;
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+  font-size: 1.3em;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
 }
 
 .dish-library ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 15px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
 }
 
 .dish-library li {
-    padding: 8px 0;
-    border-bottom: 1px dashed #ddd;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
 }
 
 .dish-library li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .dish-library input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: calc(100% - 22px);
-    margin-right: 10px;
-    font-size: 1em;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 22px);
+  margin-right: 10px;
+  font-size: 1em;
 }
 
 .dish-library button {
-    padding: 10px 15px;
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+  padding: 10px 15px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 .dish-library button:hover {
-    background-color: #4cae4c;
+  background-color: #4cae4c;
 }
 
 .add-meal-modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    justify-content: center;
-    align-items: center;
-    z-index: 10; /* Ensure it's on top */
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 }
 
 .modal-content {
@@ -215,272 +216,475 @@ header button:hover {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     position: relative;
-    width: 90%;
-    max-width: 400px;
-}
+    /* Adjust max-width to make it narrower */
+    max-width: 300px; /* Example: narrower modal */
+    width: 90%; /* Keep responsiveness for smaller screens */
+  }
+  
+  /* Style adjustments for Select2 within the modal */
+.modal-content .select2-container {
+    width: 100% !important; /* Make sure it takes the full width of the modal-content */
+  }
+  
+  .modal-content .select2-dropdown {
+    width: 100% !important; /* Ensure the dropdown doesn't extend beyond the modal-content width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    /* You might need to adjust the z-index if it's still appearing behind other modal elements */
+    z-index: 1011 !important; /* Ensure it's above the modal (which has z-index: 10) */
+  }
+  
+  .modal-content .select2-results__options {
+    box-sizing: border-box; /* Apply box-sizing to the results list as well */
+  }
 
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    cursor: pointer;
-    color: #888;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #888;
 }
 
 .close-button:hover {
-    color: #333;
+  color: #333;
 }
 
 .modal-content h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #555;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #555;
 }
 
 .modal-content select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
 }
 
 .modal-content button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 .modal-content button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 /* ... other styles ... */
 
 .dish-library-management {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .dish-library-management h2 {
-    font-size: 1.3em;
-    color: #555;
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+  font-size: 1.3em;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
 }
 
 #dishListManagement {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
 }
 
 #dishListManagement li {
-    padding: 8px 0;
-    border-bottom: 1px dashed #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #dishListManagement li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 #dishListManagement li button.delete-button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
 }
 
 #dishListManagement li button.delete-button:hover {
-    background-color: #c82333;
+  background-color: #c82333;
 }
 
 .add-new-dish-form {
-    display: grid;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .add-new-dish-form input[type="text"],
 .add-new-dish-form textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
 }
 
 .add-new-dish-form button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 .add-new-dish-form button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 
 #dishListManagement li button.edit-button {
-    background-color: #007bff; /* A primary blue color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9em;
-    margin-right: 5px; /* Add some spacing between buttons */
-    transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
 }
 
 #dishListManagement li button.edit-button:hover {
-    background-color: #0056b3; /* A darker shade for hover effect */
+  background-color: #0056b3;
 }
 
 #dishListManagement li button.delete-button {
-    background-color: #dc3545; /* A danger red color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
 }
 
 #dishListManagement li button.delete-button:hover {
-    background-color: #c82333; /* A darker shade for hover effect */
+  background-color: #c82333;
 }
 
-#dishListManagement li > div { /* Style the button container */
-    display: flex;
-    gap: 5px; /* Space between buttons */
+#dishListManagement li > div {
+  display: flex;
+  gap: 5px;
 }
 
 
 .edit-dish-modal .modal-content label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555; /* Darker text for better readability */
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
 }
 
 .edit-dish-modal .modal-content input[type="text"],
-
 .edit-dish-modal .modal-content textarea {
-    width: calc(100% - 22px); /* Adjust for padding and border */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box; /* Ensure padding and border are inside the element's width/height */
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
 }
 
 .edit-dish-modal .modal-content input[type="text"]:focus,
 .edit-dish-modal .modal-content textarea:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: #007bff; /* Highlight border on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle focus shadow */
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .edit-dish-modal .modal-content textarea {
-    min-height: 80px; /* Give the textarea a reasonable default height */
+  min-height: 80px;
 }
 
 .edit-dish-modal button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 .edit-dish-modal button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 
 
 #dishListManagement {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
 }
 
 #dishListManagement li {
-    padding: 8px 0;
-    border-bottom: 1px dashed #ddd;
-    display: flex; /* Keep flex for name and buttons */
-    align-items: baseline; /* Align name and ingredients at the baseline */
-    font-size: 1em;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
+  display: flex;
+  align-items: baseline;
+  font-size: 1em;
 }
 
 #dishListManagement li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-/* Style the dish name part */
 #dishListManagement li span.dish-name {
-    font-weight: bold;
-    color: #333;
-    margin-right: 1px; /* Adjust spacing between name and ingredients */
-    flex-shrink: 0; /* Prevent name from shrinking */
-    width: 250px; /* Increased width to give the dish name more space */
+  font-weight: bold;
+  color: #333;
+  margin-right: 1px;
+  flex-shrink: 0;
+  width: 250px;
 }
 
-/* Style the ingredients part */
 #dishListManagement li span.ingredients {
-    color: #777;
-    font-style: italic;
-    white-space: pre-wrap; /* Allow ingredients to wrap to the next line */
-    word-break: break-word; /* Prevent long words from breaking layout */
-    margin-left: 20px; /* Adjust margin-left to be slightly larger than the width */
+  color: #777;
+  font-style: italic;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-left: 20px;
 }
 
-#dishListManagement li > div { /* Style the button container */
-    display: flex;
-    gap: 5px;
-    margin-left: auto; /* Push buttons to the right */
+#dishListManagement li > div {
+  display: flex;
+  gap: 5px;
+  margin-left: auto;
 }
 
 
 .add-new-dish-form input[type="text"],
 .add-new-dish-form textarea {
-    padding: 8px; /* Increase padding for better spacing */
-    border: 1px solid #aaa; /* Use a slightly darker, more refined border */
-    border-radius: 8px; /* Increase border-radius for softer corners */
-    font-size: 1.1em; /* Slightly increase font size for better readability */
-    margin-bottom: 15px; /* Add some margin below each input/textarea */
-    box-sizing: border-box; /* Ensure padding and border are inside the element's width/height */
-    width: calc(100% - 24px); /* Adjust width for padding and border */
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  width: calc(100% - 24px);
 }
 
 .add-new-dish-form input[type="text"]:focus,
-.add-new
+.add-new-dish-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.add-new-dish-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-header {
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-header h2{
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  text-align: right;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+
+#dishSearch {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+#dishSearch:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+#selectDish {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+#selectDish:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+#saveMeal, #clearMeal {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#saveMeal:hover, #clearMeal:hover {
+  background-color: #367c39;
+}
+
+#clearMeal {
+  background-color: #f44336;
+  color: white;
+}
+
+#clearMeal:hover {
+  background-color: #d32f2f;
+}
+
+/* Override transitions on the Select2 container when open */
+.modal-content .select2-container--open {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  /* Also target the dropdown itself to be thorough */
+  .modal-content .select2-container--open .select2-dropdown {
+    transition: none !important;
+    animation: none !important;
+  }
+
+/* Make the select box itself clean */
+.select2-container--default .select2-selection--single {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 16px;
+  }
+  
+  /* Text inside the selected box */
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #333;
+    line-height: 26px;
+  }
+  
+  /* Arrow icon */
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100%;
+    right: 10px;
+  }
+  
+  /* Dropdown panel */
+  .select2-container--default .select2-dropdown {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1011 !important; /* stay on top */
+  }
+  
+  /* Dropdown options */
+  .select2-container--default .select2-results__option {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+  
+  /* Hover & selected state */
+  .select2-container--default .select2-results__option--highlighted {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .select2-container--default .select2-results__option--selected {
+    background-color: #e9ecef;
+  }
+  
+
+</style>
