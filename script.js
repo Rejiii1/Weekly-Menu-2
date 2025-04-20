@@ -1,10 +1,62 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd_HEHyheAvr8wVvZreP_xKiWsG05PcCc",
+            authDomain: "weekly-menu-2.firebaseapp.com",
+            projectId: "weekly-menu-2",
+            storageBucket: "weekly-menu-2.firebasestorage.app",
+            messagingSenderId: "600774461017",
+            appId: "1:600774461017:web:70238ba949e473171e5348",
+            measurementId: "G-5FX6NGDP97"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const dishLibraryLink = document.getElementById('dishLibraryLink');
+            if (dishLibraryLink) {
+                dishLibraryLink.addEventListener('click', () => {
+                    window.location.href = 'dishes.html';
+                });
+            }
+        });
+
+        window.logout = async () => {
+            try {
+                await signOut(auth);
+                console.log('Logout successful');
+                window.location.href = 'login.html'; // Redirect to login page after logout
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // User is not logged in, redirect to login page
+                window.location.href = 'login.html';
+            } else {
+                // User is logged in, proceed with loading the app
+                console.log('User is logged in on index:', user);
+                // Your existing index.html logic to load meal plans, etc.
+            }
+        });
+
 const prevMonthButton = document.getElementById('prevMonth');
 const nextMonthButton = document.getElementById('nextMonth');
 const currentMonthDisplay = document.getElementById('currentMonth');
 const calendarGrid = document.getElementById('calendarGrid');
 const dishListElement = document.getElementById('dishList');
-const newDishInput = document.getElementById('newDishInput');
-const addDishButton = document.getElementById('addDishButton');
 const addMealModal = document.getElementById('addMealModal');
 const closeModalButton = document.getElementById('closeModal');
 const modalDateDisplay = document.getElementById('modalDate');
@@ -13,22 +65,8 @@ const addMealButtonModal = document.getElementById('addMealButtonModal');
 const groceryListButton = document.getElementById('groceryListButton');
 
 let currentDate = new Date();
-let dishesWithIngredients = loadDishesWithIngredients(); // Changed variable name
 let meals = loadMeals();
 
-function loadDishesWithIngredients() { // Changed function name
-    const storedDishes = localStorage.getItem('dishesWithIngredients'); // Changed key
-    return storedDishes ? JSON.parse(storedDishes) : {
-        "Pasta with Tomato Sauce": ["Pasta", "Tomato Sauce", "Garlic", "Onion", "Olive Oil"],
-        "Chicken Salad Sandwich": ["Chicken Breast", "Mayonnaise", "Celery", "Bread", "Lettuce"],
-        "Omelette": ["Eggs", "Cheese", "Milk", "Salt", "Pepper"],
-        "Grilled Cheese": ["Bread", "Cheese", "Butter"]
-    };
-}
-
-function saveDishesWithIngredients() { // Changed function name
-    localStorage.setItem('dishesWithIngredients', JSON.stringify(dishesWithIngredients)); // Changed key
-}
 
 function loadMeals() {
     const storedMeals = localStorage.getItem('meals');
@@ -37,6 +75,31 @@ function loadMeals() {
 
 function saveMeals() {
     localStorage.setItem('meals', JSON.stringify(meals));
+}
+
+async function loadDishesFromFirestoreForMainPage() {
+    dishListElement.innerHTML = '';
+    try {
+        const querySnapshot = await getDocs(collection(db, 'dishes'));
+        querySnapshot.forEach((doc) => {
+            const dishData = doc.data();
+            const listItem = document.createElement('li');
+            listItem.textContent = dishData.name;
+            dishListElement.appendChild(listItem);
+        });
+        // Populate the dropdown in the modal as well
+        const selectDish = $('#selectDish');
+        selectDish.empty().append('<option value="" disabled selected>Search or select a dish</option>');
+        selectDish.append('<option value="clear-meal">Clear</option>');
+        querySnapshot.forEach((doc) => {
+            const dishData = doc.data();
+            const option = $('<option></option>').attr('value', dishData.name).text(dishData.name);
+            selectDish.append(option);
+        });
+        selectDish.trigger('change');
+    } catch (error) {
+        console.error("Error loading dishes for main page:", error);
+    }
 }
 
 function renderCalendar() {
@@ -77,7 +140,6 @@ function renderCalendar() {
 
 function updateDishList() {
     dishListElement.innerHTML = ''; // Clear the existing list
-    const dishes = loadDishesWithIngredients(); // Load the dishes from local storage
     console.log("Dishes loaded for updateDishList:", dishes); // <--- ADD THIS LINE
     for (const dishName in dishes) {
         const listItem = document.createElement('li');
@@ -95,20 +157,6 @@ function updateDishList() {
     // Programmatically trigger Select2 to update its display
     selectDish.trigger('change');
 }
-
-addDishButton.addEventListener('click', () => {
-    const newDish = newDishInput.value.trim();
-    if (newDish && !dishesWithIngredients[newDish]) { // Check if dish already exists
-        // For this basic version, we'll just add the dish name with an empty ingredient list.
-        // In a more advanced version, you'd have a way to add ingredients here.
-        dishesWithIngredients[newDish] = [];
-        saveDishesWithIngredients();
-        updateDishList();
-        newDishInput.value = '';
-    } else if (dishesWithIngredients[newDish]) {
-        alert("Dish already exists!");
-    }
-});
 
 prevMonthButton.addEventListener('click', () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
@@ -195,6 +243,15 @@ groceryListButton.addEventListener('click', () => {
     window.location.href = 'grocery.html';
 });
 
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log('User is logged in on index:', user);
+        loadDishesFromFirestoreForMainPage(); // Call this to load dishes from Firestore
+        renderCalendar();
+    } else {
+        window.location.href = 'login.html';
+    }
+});
+
 // Initial rendering
 renderCalendar();
-updateDishList();

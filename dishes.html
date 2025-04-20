@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
         <h1>Dish Library</h1>
         <button onclick="window.location.href='index.html'">Back to Planner</button>
+        <button onclick="logout()">Logout</button> 
     </header>
 
     <div class="dish-library-management">
         <h2>Current Dishes</h2>
         <ul id="dishListManagement">
-            </ul>
+        </ul>
 
         <h2>Add New Dish</h2>
         <div class="add-new-dish-form">
@@ -37,7 +39,6 @@
             </div>
         </div>
     </div>
-
-    <script src="dishes.js"></script>
+    <script src="dishes.js" type="module"></script>
 </body>
 </html>

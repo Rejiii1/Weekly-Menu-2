@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner Login</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f4f4f4; }
+        .login-container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); text-align: center; }
+        h2 { margin-bottom: 20px; color: #333; }
+        input[type="email"], input[type="password"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+        .error-message { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Meal Planner Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="loginWithEmailPassword()">Login</button>
+        <p id="authError" class="error-message"></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd_HEHyheAvr8wVvZreP_xKiWsG05PcCc",
+            authDomain: "weekly-menu-2.firebaseapp.com",
+            projectId: "weekly-menu-2",
+            storageBucket: "weekly-menu-2.firebasestorage.app",
+            messagingSenderId: "600774461017",
+            appId: "1:600774461017:web:70238ba949e473171e5348",
+            measurementId: "G-5FX6NGDP97"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        window.loginWithEmailPassword = async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorElement = document.getElementById('authError');
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                console.log('Login successful:', user);
+                window.location.href = 'index.html'; // Redirect to the main planner page
+            } catch (error) {
+                console.error('Login failed:', error.code, error.message);
+                errorElement.textContent = error.message;
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is already logged in, redirect to the main page
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

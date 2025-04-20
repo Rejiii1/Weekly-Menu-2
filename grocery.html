@@ -18,5 +18,33 @@
     </div>
 
     <script src="grocery.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js"; // Keep this if you want analytics
+      
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCd_HEHyheAvr8wVvZreP_xKiWsG05PcCc",
+          authDomain: "weekly-menu-2.firebaseapp.com",
+          projectId: "weekly-menu-2",
+          storageBucket: "weekly-menu-2.firebasestorage.app",
+          messagingSenderId: "600774461017",
+          appId: "1:600774461017:web:70238ba949e473171e5348",
+          measurementId: "G-5FX6NGDP97"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app); // Initialize Firestore
+        const auth = getAuth(app);   // Initialize Authentication (if you plan to use it)
+        // const analytics = getAnalytics(app); // Initialize Analytics (if you want it)
+      </script>
 </body>
 </html>

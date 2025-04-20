@@ -1,3 +1,33 @@
+/* style.css */
+
+/* Style for the clickable Dish Library heading */
+.dish-library h2#dishLibraryLink {
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 12px; /* Adjust padding as needed */
+    border: 1px solid #555; /* Use a color that fits your header buttons */
+    background-color: #f8f8f8; /* Light background, similar to header hover */
+    color: #333; /* Dark text */
+    border-radius: 5px; /* Match button border-radius */
+    font-size: 1.1em; /* Slightly larger than the regular h2 */
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    text-decoration: none;
+}
+
+.dish-library h2#dishLibraryLink:hover {
+    background-color: #ddd; /* Match header button hover */
+    color: #333;
+    transform: scale(1.02); /* Slight scale on hover */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dish-library h2#dishLibraryLink:active {
+    transform: scale(0.98);
+}
+
+/* Keep your existing styles below */
 body {
     font-family: sans-serif;
     margin: 20px;
@@ -453,29 +483,4 @@ header button:hover {
 }
 
 .add-new-dish-form input[type="text"]:focus,
-.add-new-dish-form textarea:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: #007bff; /* Highlight border on focus */
-    box-shadow: 0 0 7px rgba(0, 123, 255, 0.3); /* Add a subtle, softer focus shadow */
-}
-
-.add-new-dish-form textarea {
-    min-height: 70px; /* Adjust as needed */
-}
-.edit-dish-modal .modal-content textarea {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1.2em; /* Increased font size specifically for this textarea */
-    min-height: 80px;
-    box-sizing: border-box;
-}
-
-.edit-dish-modal .modal-content textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
+.add-new

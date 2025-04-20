@@ -1,48 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Meal Planner</title>
-        <link rel="stylesheet" href="styles.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
-    </head>
-    <body>
-        <header>
-            <h1>Meal Planner</h1>
-            <button onclick="window.location.href='dishes.html'">Edit Dishes</button>
-            <button id="groceryListButton">Go to Grocery List</button>
-        </header>
-    
-        <div class="calendar-container">
-            <div class="calendar-header">
-                <button id="prevMonth">Previous</button>
-                <h2 id="currentMonth"></h2>
-                <button id="nextMonth">Next</button>
-            </div>
-            <div class="calendar-grid" id="calendarGrid">
-                </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Meal Planner</h1>
+        <button id="groceryListButton">Go to Grocery List</button>
+        <button onclick="logout()">Logout</button>
+    </header>
+
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prevMonth">Previous</button>
+            <h2 id="currentMonth"></h2>
+            <button id="nextMonth">Next</button>
         </div>
-    
-        <div class="dish-library">
-            <h2>Dish Library</h2>
-            <ul id="dishList">
-                </ul>
-            <input type="text" id="newDishInput" placeholder="Add new dish">
-            <button id="addDishButton">Add Dish</button>
+        <div class="calendar-grid" id="calendarGrid">
         </div>
-    
-        <div class="add-meal-modal" id="addMealModal">
-            <div class="modal-content">
-                <span class="close-button" id="closeModal">&times;</span>
-                <h3>Add Meal to <span id="modalDate"></span></h3>
-                <select id="selectDish">
-                    </select>
-            </div>
+    </div>
+
+    <div class="dish-library">
+        <h2 class="clickable-heading" id="dishLibraryLink">Dish Library</h2>
+        <ul id="dishList">
+        </ul>
+    </div>
+
+    <div class="add-meal-modal" id="addMealModal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h3>Add Meal to <span id="modalDate"></span></h3>
+            <select id="selectDish">
+            </select>
         </div>
-    
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
-        <script src="script.js"></script>
-    </body>
-    </html>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
