@@ -220,6 +220,12 @@ async function saveOrUpdateMealInFirestore(db, docFn, updateDocFn, userId, dateK
                 // Format dateKey consistently as YYYY-MM-DD
                 const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         
+                const today = new Date();
+                const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
+                if (isToday) {
+                    dayCell.classList.add('today'); // Add a special class for today's date
+                }
+
                 // Check if a meal exists for this date in the local 'meals' cache
                 if (meals[dateKey]) {
                     dayCell.classList.add('has-meal'); // Add class if meal exists

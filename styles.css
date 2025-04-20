@@ -686,5 +686,49 @@ header button:hover {
     background-color: #e9ecef;
   }
   
+  .day.today {
+    background-color: #fcf29e; /* Yellow background */
+    color: #000; /* Black text */
+    font-weight: bold;
+    border: 2px solid #afa842; /* Optional: Border for emphasis */
+  }
+  
+  .day.today:hover {
+    background-color: #ffdd46; /* Lighter yellow when hovered */
+  }
+
+  @media (max-width: 768px) {
+    /* Adjust calendar size for mobile */
+    .calendar {
+        font-size: 14px;  /* Smaller font for mobile */
+        width: 100%;  /* Make calendar stretch to full width */
+    }
+
+    .calendar-cell {
+        padding: 8px;
+        font-size: 12px;  /* Smaller font for cell text */
+    }
+
+    /* Adjust today’s date format for mobile */
+    .today {
+        background-color: #ffeb3b;
+        color: #333333;
+        font-size: 16px;  /* Adjust font size */
+        font-weight: bold;
+        border-radius: 50%; 
+    }
+
+    /* Make buttons more touch-friendly */
+    .button {
+        padding: 12px 24px;
+        font-size: 18px;
+    }
+
+    /* Make the header more compact on mobile */
+    .calendar-header {
+        font-size: 18px;
+        text-align: center;
+    }
+}
 
 </style>
