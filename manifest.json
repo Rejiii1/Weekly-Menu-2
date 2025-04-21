@@ -1,6 +1,6 @@
 {
   "name": "Dinner Planner",
-  "short_name": "DinnerPlan",
+  "short_name": "Meals",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#add8e6",
