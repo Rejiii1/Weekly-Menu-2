@@ -691,10 +691,15 @@ header button:hover {
         background-color: lightblue !important;
         margin: 5px !important; /* Reduce margin on mobile */
       }
-   
+
+      header {
+        margin-bottom: 5px !important;
+        padding: 15px 20px;
+      }
       .calendar-container {
         margin-left: 1px; /* Reduce left margin */
         margin-right: 1px; /* Reduce right margin */
+        margin-bottom: 5px !important;
         padding: 5px; /* Slightly reduce padding inside */
       }
       
