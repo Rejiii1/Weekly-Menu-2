@@ -688,7 +688,7 @@ header button:hover {
   @media (max-width: 768px) {
     /* Adjust calendar size for mobile */
     body {
-        background-color: lightblue !important;
+        background-color: #add8e6 !important;
         margin: 5px !important; /* Reduce margin on mobile */
       }
 
