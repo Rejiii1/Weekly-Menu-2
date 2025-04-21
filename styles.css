@@ -92,7 +92,8 @@ header button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 1.5em;
+  font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
@@ -650,7 +651,7 @@ header button:hover {
     display: inline-block;
     padding: 10px 20px;
     margin: 5px 0 5px auto; /* Add auto margin to the left */
-    font-size: 16px;
+    font-size: 1.5em;
     text-align: center;
     text-decoration: none;
     border: none;
@@ -666,7 +667,7 @@ header button:hover {
     display: inline-block;
     padding: 10px 20px;
     margin: 5px 0 5px 0; /* Standard margins */
-    font-size: 16px;
+    font-size: 1.5em;
     text-align: center;
     text-decoration: none;
     border: none;
@@ -703,7 +704,13 @@ header button:hover {
 
       .day {
         padding: 2px; /* Reduce padding inside each day cell */
-        font-size: 0.7rem; /* Smaller font size for day numbers */
+        font-size: 1rem; /* Smaller font size for day numbers */
+        font-weight: bold; /* Make day numbers bold */
+        min-height: 80px; /* Ensure a minimum height for day cells */
+      }
+
+      .day-content {
+        font-size: 0.8rem; /* Smaller font size for day content */
       }
 
       .fc-toolbar-title {
