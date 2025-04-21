@@ -371,7 +371,7 @@ header button:hover {
   color: #333;
   margin-right: 1px;
   flex-shrink: 0;
-  width: 250px;
+  width: 100px;
 }
 
 #dishListManagement li span.ingredients {
