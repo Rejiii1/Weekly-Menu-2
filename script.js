@@ -406,17 +406,13 @@ async function saveOrUpdateMealInFirestore(db, docFn, updateDocFn, userId, dateK
         
         
              if (groceryListButton) {
-                console.log('Grocery List button element found:', groceryListButton); // ADD THIS LINE
                 groceryListButton.addEventListener('click', () => {
-                  console.log('Grocery List button clicked!'); // ADD THIS LINE
                   window.location.href = 'grocery.html';
                 });
               }
               
               if (dishLibraryButton) {
-                console.log('Dish Library button element found:', dishLibraryButton); // ADD THIS LINE
                 dishLibraryButton.addEventListener('click', () => {
-                  console.log('Dish Library button clicked!'); // ADD THIS LINE
                   window.location.href = 'dishes.html';
                 });
               }
