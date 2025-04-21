@@ -71,7 +71,7 @@ async function loadDishesFromFirestore() {
 
                 const editButton = document.createElement('button');
                 editButton.textContent = 'Edit';
-                editButton.classList.add('edit-button');
+                editButton.classList.add('<i class="fas fa-pencil"></i>');
                 editButton.addEventListener('click', () => openEditModal(dishId, dishData.name, dishData.ingredients || [])); // Pass the ID
 
                 const deleteButton = document.createElement('button');
