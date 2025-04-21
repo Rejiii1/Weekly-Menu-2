@@ -684,6 +684,45 @@ header button:hover {
     background-color: #4cae4c;
   }
 
+  body.grocery-page header {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center;
+    margin-bottom: 20px; /* Adjust as needed for grocery page */
+    padding: 2px 15px;    /* Adjust as needed for grocery page */
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    border-bottom: 1px solid #ddd; /* Add a bottom border to distinguish */
+  }
+  
+  body.grocery-page header h1 {
+    margin: 0 15px; /* Add right margin to the title */
+    font-size: 2.5em; /* Adjust title size for grocery page */
+  }
+  
+  body.grocery-page header button {
+    padding: 8px 12px;
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2em;
+    transition: background-color 0.3s ease;
+
+  }
+  
+  body.grocery-page header button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  body.grocery-page header button i {
+    font-size: 1.2em;
+  }
+
+
+
 
   @media (max-width: 768px) {
     /* Adjust calendar size for mobile */
@@ -735,6 +774,9 @@ header button:hover {
         transform: scale(0.95);
         transform-origin: top center;
       }
+
+
+
 }
 
 
