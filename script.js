@@ -38,7 +38,7 @@ import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/fi
         let modalDateDisplay;
         let selectDishDropdown; // This will be the jQuery Select2 element
         let groceryListButton;
-        let dishLibraryLink;
+        let dishLibraryButton;
         
         // --- Firestore Meal Functions (from New Code, slightly adapted) ---
         
@@ -364,7 +364,10 @@ async function saveOrUpdateMealInFirestore(db, docFn, updateDocFn, userId, dateK
             modalDateDisplay = document.getElementById('modalDate');
             selectDishDropdown = document.getElementById('selectDish'); // The <select> element
             groceryListButton = document.getElementById('groceryListButton');
-            dishLibraryLink = document.getElementById('dishLibraryLink');
+            dishLibraryButton = document.getElementById('dishLibraryButton');
+
+
+
             loadDishesAndPopulateDropdown();
             // --- Basic Event Listeners ---
             if (prevMonthButton) {
@@ -402,18 +405,21 @@ async function saveOrUpdateMealInFirestore(db, docFn, updateDocFn, userId, dateK
              }
         
         
-            if (groceryListButton) {
+             if (groceryListButton) {
+                console.log('Grocery List button element found:', groceryListButton); // ADD THIS LINE
                 groceryListButton.addEventListener('click', () => {
-                    window.location.href = 'grocery.html';
+                  console.log('Grocery List button clicked!'); // ADD THIS LINE
+                  window.location.href = 'grocery.html';
                 });
-            }
-        
-            if (dishLibraryLink) {
-                dishLibraryLink.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent default link behavior if necessary
-                    window.location.href = 'dishes.html';
+              }
+              
+              if (dishLibraryButton) {
+                console.log('Dish Library button element found:', dishLibraryButton); // ADD THIS LINE
+                dishLibraryButton.addEventListener('click', () => {
+                  console.log('Dish Library button clicked!'); // ADD THIS LINE
+                  window.location.href = 'dishes.html';
                 });
-            }
+              }
         
             // Authentication State Change Listener
             onAuthStateChanged(auth, async (user) => {
