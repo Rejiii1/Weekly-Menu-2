@@ -70,7 +70,7 @@ async function loadDishesFromFirestore() {
                 ingredientsSpan.textContent = dishData.ingredients ? dishData.ingredients.join(', ') : '';
 
                 const editButton = document.createElement('button');
-                editButton.textContent = '<i class="fas fa-pencil"></i>';
+                editButton.innerHTML = '<i class="fas fa-pencil"></i>';
                 editButton.classList.add('edit-button');
                 editButton.addEventListener('click', () => openEditModal(dishId, dishData.name, dishData.ingredients || [])); // Pass the ID
 
