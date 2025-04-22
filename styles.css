@@ -622,7 +622,7 @@ header button:hover {
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
+    width: 55%;
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
@@ -654,7 +654,7 @@ header button:hover {
     display: block;
     position: absolute;
     top: 50%;
-    left: 80%;
+    left: 83%;
     transform: translate(-40%, -50%);
     width: 60px; /* Adjust size to be slightly larger than the button */
     height: 60px;
@@ -668,7 +668,7 @@ header button:hover {
     display: block;
     position: absolute;
     top: 50%;
-    left: 20%;
+    left: 13%;
     transform: translate(-40%, -50%);
     width: 60px; /* Adjust size to be slightly larger than the button */
     height: 60px;
@@ -684,7 +684,7 @@ header button:hover {
 
   #dishLibraryButton {
     position: absolute; /* Position relative to the nearest positioned ancestor */
-    left: 20%;
+    left: 13%;
     top: 50%;
     transform: translateX(-50%) translateY(-60%);
     display: inline-block;
@@ -698,13 +698,12 @@ header button:hover {
     background-color: #ffffff;
     color: #555;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     width: auto;
   }
 
   #active-dishLibraryButton {
     position: absolute; /* Position relative to the nearest positioned ancestor */
-    left: 20%;
+    left: 13%;
     top: 50%;
     transform: translateX(-50%) translateY(-60%);
     display: inline-block;
@@ -718,13 +717,12 @@ header button:hover {
     color: #FFCB05; /* Active icon color */
     background-color: #00274C; /* Active button color */
     cursor: pointer;
-    transition: background-color 0.3s ease;
     width: auto;
   }
 
   #groceryListButton {
     position: absolute; /* Position relative to the nearest positioned ancestor */
-    left: 80%;
+    left: 83%;
     top: 50%;
     transform: translateX(-50%) translateY(-60%);
     display: inline-block;
@@ -738,13 +736,12 @@ header button:hover {
     background-color: #ffffff;
     color: #555;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     width: auto;
   }
 
   #active-groceryListButton {
     position: absolute; /* Position relative to the nearest positioned ancestor */
-    left: 80%;
+    left: 83%;
     top: 50%;
     transform: translateX(-50%) translateY(-60%);
     display: inline-block;
@@ -758,7 +755,6 @@ header button:hover {
     color: #FFCB05; /* Active icon color */
     background-color: #00274C; /* Active button color */
     cursor: pointer;
-    transition: background-color 0.3s ease;
     width: auto;
   }
 
@@ -774,11 +770,10 @@ header button:hover {
     text-align: center;
     text-decoration: none;
     border: none;
-    border-radius: 50px;
+    border-radius: 50%;
     background-color: #ffffff;
     color: #555;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     width: auto;
   }
 
@@ -798,7 +793,6 @@ header button:hover {
     color: #FFCB05; /* Active icon color */
     background-color: #00274C; /* Active button color */
     cursor: pointer;
-    transition: background-color 0.3s ease;
     width: auto;
     border-radius: 50%; /* Optional, for a circular container */
   }
@@ -810,8 +804,8 @@ header button:hover {
     align-items: center;
     margin-bottom: 30px;
     padding: 15px 20px;
-    background-color: #333;
-    color: white;
+    background-color: #00274C;
+    color: #FFCB05;
     border-radius: 5px;
   }
   
