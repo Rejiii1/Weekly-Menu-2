@@ -9,13 +9,27 @@
 </head>
 <body class="grocery-page">
     <header>
-        <button onclick="window.location.href='index.html'"><i class="fas fa-chevron-left"></i></button>
         <h1>Grocery List</h1>
     </header>
 
     <div class="grocery-list-container">
         <ul id="groceryList">
             </ul>
+    </div>
+
+    <div class="bottom-navigation">
+        <div class="centered-line"></div>
+        <div class="bottom-buttons">
+            <button id="dishLibraryButton" onclick="window.location.href='dishes.html'">
+                <i class="fas fa-book"></i>
+            </button>
+            <button id="homeButton" onclick="window.location.href='index.html'">
+                <i class="fas fa-home"></i>
+            </button>
+            <button id="groceryListButton">
+                <i class="fas fa-list-check"></i>
+            </button>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

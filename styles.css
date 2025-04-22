@@ -602,62 +602,32 @@ header button:hover {
   }
 
 
-  .dish-library {
+  .bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f0f0f0;
     display: flex;
-    justify-content: flex-start; /* Align items to the start (left) */
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  .dish-library h2 {
-    font-size: 1.3em;
-    color: #555;
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    /* You might need to adjust or remove margins here if the h2 is also a flex item */
-  }
-  
-  .dish-library ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 15px;
-  }
-  
-  .dish-library li {
-    padding: 8px 0;
-    border-bottom: 1px dashed #ddd;
-  }
-  
-  .dish-library li:last-child {
-    border-bottom: none;
-  }
-  
-  .dish-library input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: calc(100% - 22px);
-    margin-right: 10px;
-    font-size: 1em;
-  }
+    height: 10%; 
+    border-top: 1px solid #ccc;
+    z-index: 1000;
+}
+
   
   #groceryListButton {
     display: inline-block;
-    padding: 10px 20px;
-    margin: 5px 0 5px auto; /* Add auto margin to the left */
-    font-size: 1.5em;
+    padding: 10px 22px;
+    margin: 5px 5% 5px 5%; /* Add auto margin to the left */
+    font-size: 2em;
     text-align: center;
     text-decoration: none;
     border: none;
     border-radius: 5px;
-    background-color: #5cb85c;
-    color: white;
+    background-color: #ffffff;
+    color: #555;
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: auto;
@@ -666,19 +636,51 @@ header button:hover {
   #dishLibraryButton {
     display: inline-block;
     padding: 10px 20px;
-    margin: 5px 0 5px 0; /* Standard margins */
-    font-size: 1.5em;
+    margin: 5px 5% 5px 5%; /* Standard margins */
+    font-size: 2em;
     text-align: center;
     text-decoration: none;
     border: none;
     border-radius: 5px;
-    background-color: #5cb85c;
-    color: white;
+    background-color: #ffffff;
+    color: #555;
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: auto;
   }
   
+  #homeButton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0 5px 0; /* Add auto margin to the left */
+    font-size: 2em;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #555;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+  }
+
+  .centered-line {
+    height: 2px;
+    background-color: #a5a4a4; /* THIS is the fix - not 'color' */
+    width: 100%;
+    margin: 0px; /* Gives a little vertical breathing room */
+    z-index: 1002;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+
+
   #groceryListButton:hover,
   #dishLibraryButton:hover {
     background-color: #4cae4c;
@@ -686,42 +688,20 @@ header button:hover {
 
   body.grocery-page header {
     display: flex;
-    justify-content: flex-start; /* Align items to the left */
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px; /* Adjust as needed for grocery page */
-    padding: 2px 15px;    /* Adjust as needed for grocery page */
+    margin-bottom: 30px;
+    padding: 15px 20px;
     background-color: #333;
     color: white;
     border-radius: 5px;
-    border-bottom: 1px solid #ddd; /* Add a bottom border to distinguish */
   }
   
   body.grocery-page header h1 {
-    margin: 0 15px; /* Add right margin to the title */
-    font-size: 2.5em; /* Adjust title size for grocery page */
-  }
-  
-  body.grocery-page header button {
-    padding: 8px 12px;
-    background-color: transparent;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    margin: 0;
     font-size: 2em;
-    transition: background-color 0.3s ease;
-
   }
   
-  body.grocery-page header button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  body.grocery-page header button i {
-    font-size: 1.2em;
-  }
-
-
 
 
   @media (max-width: 768px) {
