@@ -774,7 +774,7 @@ header button:hover {
     text-align: center;
     text-decoration: none;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     background-color: #ffffff;
     color: #555;
     cursor: pointer;
@@ -794,7 +794,7 @@ header button:hover {
     text-align: center;
     text-decoration: none;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     color: #FFCB05; /* Active icon color */
     background-color: #00274C; /* Active button color */
     cursor: pointer;
