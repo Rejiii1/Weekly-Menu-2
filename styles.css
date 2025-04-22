@@ -7,7 +7,7 @@
   display: inline-block;
   padding: 8px 12px;
   border: 1px solid #555;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   color: #333;
   border-radius: 5px;
   font-size: 1.1em;
@@ -33,7 +33,7 @@ body {
   font-family: sans-serif;
   margin: 20px;
   line-height: 1.6;
-  background-color: #f4f4f4;
+  background-color: #ffffff;
   color: #333;
   
 }
@@ -619,7 +619,7 @@ header button:hover {
   
   #groceryListButton {
     display: inline-block;
-    padding: 10px 22px;
+    padding: 10px 19px;
     margin: 5px 5% 5px 5%; /* Add auto margin to the left */
     font-size: 2em;
     text-align: center;
@@ -679,12 +679,6 @@ header button:hover {
   width: 100%;
   align-items: center;
 }
-
-
-  #groceryListButton:hover,
-  #dishLibraryButton:hover {
-    background-color: #4cae4c;
-  }
 
   body.grocery-page header {
     display: flex;
