@@ -289,7 +289,8 @@ header button:hover {
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 1em;
+  font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
@@ -394,6 +395,7 @@ header button:hover {
   white-space: pre-wrap;
   word-break: break-word;
   margin-left: 20px;
+  margin-right: 10px;
 }
 
 #dishListManagement li > div {
@@ -625,65 +627,15 @@ header button:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: auto;
+    height: 6%;
     padding: 10px 20px;
     border-radius: 50px;
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
   }
   
-  .bottom-buttons {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    align-items: center;
-  }
-  
-  /* Style for all standard buttons */
-  .bottom-buttons button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    margin: 5px;
-    font-size: 2em;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 50%;
-    background-color: #ffffff;
-    color: #555; /* Default icon color */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    position: relative; /* For positioning the active circle */
-  }
-  
-  /* Style for the active button's container */
-  .active-button {
-    position: relative; /* To contain the circle */
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%; /* Optional, for a circular container */
-  }
-  
-#active-homebutton {
-  position: absolute; /* Position relative to the nearest positioned ancestor */
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-  /* Style for the active button itself */
-  .active-button button {
-    color: #FFCB05; /* Active icon color */
-    background-color: #00274C; /* Active button color */
-    /* Inherits other styles from .bottom-buttons button */
-  }
-  
   /* Style for the colored circle behind the active button */
-  .active-button::before {
+  .active-home-button::before {
     content: "";
     display: block;
     position: absolute;
@@ -696,27 +648,45 @@ header button:hover {
     border-radius: 50%;
     z-index: -1; /* Behind the icon */
   }
-/* Inactive page buttons */
 
-  #groceryListButton {
-
-    display: inline-block;
-    padding: 10px 19px;
-    margin: 5px; /* Add auto margin to the left */
-    font-size: 2em;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    background-color: #ffffff;
-    color: #555;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: auto;
+  .active-grocery-button::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-40%, -50%);
+    width: 60px; /* Adjust size to be slightly larger than the button */
+    height: 60px;
+    background-color: #00274C; /* Your highlight color */
+    border-radius: 50%;
+    z-index: -1; /* Behind the icon */
   }
-  
-  #dishLibraryButton {
 
+  .active-dish-button::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-40%, -50%);
+    width: 60px; /* Adjust size to be slightly larger than the button */
+    height: 60px;
+    background-color: #00274C; /* Your highlight color */
+    border-radius: 50%;
+    z-index: -1; /* Behind the icon */
+  }
+
+/* Grocery buttons */
+  
+
+
+
+  #dishLibraryButton {
+    position: absolute; /* Position relative to the nearest positioned ancestor */
+    left: 20%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-60%);
     display: inline-block;
     padding: 10px 20px;
     margin: 5px; /* Standard margins */
@@ -731,11 +701,72 @@ header button:hover {
     transition: background-color 0.3s ease;
     width: auto;
   }
-  
+
+  #active-dishLibraryButton {
+    position: absolute; /* Position relative to the nearest positioned ancestor */
+    left: 20%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-60%);
+    display: inline-block;
+    padding: 10px 10px;
+    margin: 5px; /* Standard margins */
+    font-size: 2em;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    color: #FFCB05; /* Active icon color */
+    background-color: #00274C; /* Active button color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+  }
+
+  #groceryListButton {
+    position: absolute; /* Position relative to the nearest positioned ancestor */
+    left: 80%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-60%);
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px; /* Standard margins */
+    font-size: 2em;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: #555;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+  }
+
+  #active-groceryListButton {
+    position: absolute; /* Position relative to the nearest positioned ancestor */
+    left: 80%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-60%);
+    display: inline-block;
+    padding: 10px 10px;
+    margin: 5px; /* Standard margins */
+    font-size: 2em;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    color: #FFCB05; /* Active icon color */
+    background-color: #00274C; /* Active button color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+  }
+
   #homeButton {
     position: absolute; /* Position relative to the nearest positioned ancestor */
-  left: 50%;
-  transform: translateX(-50%);
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-60%);
     display: inline-block;
     padding: 10px 20px;
     margin: 5px 0 5px 0; /* Add auto margin to the left */
@@ -750,6 +781,28 @@ header button:hover {
     transition: background-color 0.3s ease;
     width: auto;
   }
+
+  #active-homeButton {
+    position: absolute; /* Position relative to the nearest positioned ancestor */
+    left: 50%;
+    transform: translateX(-50%) translateY(-60%);
+    top: 50%;
+    display: block;
+    padding: 10px 10px;
+    margin: 5px 0 5px 0; /* Add auto margin to the left */
+    font-size: 2em;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    color: #FFCB05; /* Active icon color */
+    background-color: #00274C; /* Active button color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+    border-radius: 50%; /* Optional, for a circular container */
+  }
+
 
   body.grocery-page header {
     display: flex;
