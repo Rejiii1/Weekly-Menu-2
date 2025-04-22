@@ -54,6 +54,23 @@ header h1 {
   font-size: 2em;
 }
 
+
+body.grocery-page header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 15px 20px;
+  background-color: #00274C;
+  color: #FFCB05;
+  border-radius: 5px;
+}
+
+body.grocery-page header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
 header button {
   padding: 10px 15px;
   background-color: #293e52;
@@ -798,24 +815,9 @@ header button:hover {
   }
 
 
-  body.grocery-page header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding: 15px 20px;
-    background-color: #00274C;
-    color: #FFCB05;
-    border-radius: 5px;
-  }
-  
-  body.grocery-page header h1 {
-    margin: 0;
-    font-size: 2em;
-  }
   
 .dish-library-management {
-  margin-bottom: 150px;
+    margin: 5px 5px 150px 5px;
 }
 
 
@@ -823,16 +825,24 @@ header button:hover {
     /* Adjust calendar size for mobile */
     body {
         background-color: #add8e6 !important;
-        margin: 5px !important; /* Reduce margin on mobile */
+        margin: 0px !important; /* Reduce margin on mobile */
       }
 
       header {
         margin-bottom: 5px !important;
-        padding: 15px 20px;
+        padding: 2px 20px 15px 20px;
+        border-radius: 0px;
       }
+
+      body.grocery-page header {
+        margin-bottom: 30px;
+        padding: 2px 20px 15px 20px;
+        border-radius: 0px;
+      }
+
       .calendar-container {
-        margin-left: 1px; /* Reduce left margin */
-        margin-right: 1px; /* Reduce right margin */
+        margin-left: 6px; /* Reduce left margin */
+        margin-right: 6px; /* Reduce right margin */
         margin-bottom: 5px !important;
         padding: 5px; /* Slightly reduce padding inside */
       }
