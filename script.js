@@ -404,18 +404,7 @@ async function saveOrUpdateMealInFirestore(db, docFn, updateDocFn, userId, dateK
                   });
              }
         
-        
-             if (groceryListButton) {
-                groceryListButton.addEventListener('click', () => {
-                  window.location.href = 'grocery.html';
-                });
-              }
-              
-              if (dishLibraryButton) {
-                dishLibraryButton.addEventListener('click', () => {
-                  window.location.href = 'dishes.html';
-                });
-              }
+
         
             // Authentication State Change Listener
             onAuthStateChanged(auth, async (user) => {

@@ -18,7 +18,6 @@
     </div>
 
     <div class="bottom-navigation">
-        <div class="centered-line"></div>
         <div class="bottom-buttons">
             <button id="dishLibraryButton" onclick="window.location.href='dishes.html'">
                 <i class="fas fa-book"></i>
@@ -26,11 +25,15 @@
             <button id="homeButton" onclick="window.location.href='index.html'">
                 <i class="fas fa-home"></i>
             </button>
-            <button id="groceryListButton">
-                <i class="fas fa-list-check"></i>
-            </button>
+            <div class="active-button">
+                <button id="active-groceryListButton">
+                    <i class="fas fa-list-check"></i>
+                        </button>
+            </div>
         </div>
     </div>
+
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
