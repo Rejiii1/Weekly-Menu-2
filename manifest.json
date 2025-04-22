@@ -3,7 +3,7 @@
   "short_name": "Meals",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#add8e6",
   "theme_color": "#ffffff",
   "icons": [
     {
