@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Meal Planner</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" sizes="180x180" href="icon-180x180.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
     <header>
@@ -26,19 +27,26 @@
         </div>
     </div>
 
-    <div class="dish-library">
-        <button id="dishLibraryButton"><i class="fas fa-book"></i></button>
-        <button id="groceryListButton"><i class="fas fa-list-check"></i></button>
-        <ul id="dishList">
-        </ul>
-    </div>
-
     <div class="add-meal-modal" id="addMealModal">
         <div class="modal-content">
             <span class="close-button" id="closeModal">&times;</span>
             <h3>Add Meal to <span id="modalDate"></span></h3>
             <select id="selectDish">
             </select>
+        </div>
+    </div>
+    <div class="bottom-navigation">
+        <div class="centered-line"></div>
+        <div class="bottom-buttons">
+            <button id="dishLibraryButton">
+                <i class="fas fa-book"></i>
+            </button>
+            <button id="homeButton">
+                <i class="fas fa-home"></i>
+            </button>
+            <button id="groceryListButton">
+                <i class="fas fa-list-check"></i>
+            </button>
         </div>
     </div>
 
