@@ -113,8 +113,9 @@ async function populateTagDropdowns() {
         if (tagButtonsContainer) {
             tagButtonsContainer.innerHTML = '';
             tags.forEach(tag => {
+                const capitalizedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
                 const button = document.createElement('button');
-                button.textContent = tag;
+                button.textContent = capitalizedTag;
                 button.classList.add('tag-button');
                 button.addEventListener('click', () => filterDishesByTag(tag));
                 tagButtonsContainer.appendChild(button);
@@ -131,20 +132,22 @@ async function populateTagDropdowns() {
         if (availableTagsAddDish) {
             availableTagsAddDish.innerHTML = '<option value="">Add a tag</option>';
             tags.forEach(tag => {
+                const capitalizedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
                 const option = document.createElement('option');
                 option.value = tag;
-                option.textContent = tag;
+                option.textContent = capitalizedTag;
                 availableTagsAddDish.appendChild(option);
             });
         }
 
         // Populate "Edit Dish" dropdown
-        if (availableTagsEditDish) {
+        if (availableTagsEditDish) { // Changed variable name to be consistent
             availableTagsEditDish.innerHTML = '<option value="">Add a tag</option>';
             tags.forEach(tag => {
+                const capitalizedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
                 const option = document.createElement('option');
                 option.value = tag;
-                option.textContent = tag;
+                option.textContent = capitalizedTag;
                 availableTagsEditDish.appendChild(option);
             });
         }
@@ -169,11 +172,22 @@ function renderIngredientsList() {
     ingredientsList.innerHTML = '';
     currentIngredients.forEach((ingredient, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${ingredient.name} (${ingredient.quantity})`;
+
+        // Create a div for the ingredient text
+        const textDiv = document.createElement('div');
+        textDiv.innerHTML = `<i class="fas fa-caret-right"></i> ${ingredient.name} (${ingredient.quantity})`;
+
+        // Create a div for the remove button
+        const buttonDiv = document.createElement('div');
         const removeButton = document.createElement('button');
         removeButton.textContent = 'X';
         removeButton.addEventListener('click', () => removeIngredient(index));
-        listItem.appendChild(removeButton);
+        buttonDiv.appendChild(removeButton);
+
+        // Append both divs to the list item
+        listItem.appendChild(textDiv);
+        listItem.appendChild(buttonDiv);
+
         ingredientsList.appendChild(listItem);
     });
 }
@@ -197,11 +211,22 @@ function renderEditIngredientsList() {
     for (const ingredientId in editingIngredients) {
         const ingredient = editingIngredients[ingredientId];
         const listItem = document.createElement('li');
-        listItem.textContent = `${ingredient.name} (${ingredient.quantity})`;
+
+        // Create a div for the ingredient text
+        const textDiv = document.createElement('div');
+        textDiv.innerHTML = `<i class="fas fa-caret-right"></i> ${ingredient.name} (${ingredient.quantity})`;
+
+        // Create a div for the remove button
+        const buttonDiv = document.createElement('div');
         const removeButton = document.createElement('button');
         removeButton.textContent = 'X';
         removeButton.addEventListener('click', () => removeEditIngredient(ingredientId));
-        listItem.appendChild(removeButton);
+        buttonDiv.appendChild(removeButton);
+
+        // Append both divs to the list item
+        listItem.appendChild(textDiv);
+        listItem.appendChild(buttonDiv);
+
         editIngredientsList.appendChild(listItem);
     }
 }
@@ -212,10 +237,16 @@ function renderSelectedTags() {
     currentTags.forEach((tag, index) => {
         const capitalizedTag = tag.charAt(0).toUpperCase() + tag.slice(1); // Capitalize first letter
         const listItem = document.createElement('li');
-        listItem.textContent = capitalizedTag;
+
+        const textSpan = document.createElement('span');
+        textSpan.innerHTML = `<i class="fas fa-tag"></i> ${capitalizedTag}`; // Use tag icon
+
         const removeButton = document.createElement('button');
-        removeButton.textContent = 'X';
+        removeButton.innerHTML = '<i class="fas fa-times"></i>'; // Use times icon for remove
+        removeButton.classList.add('remove-tag-button'); // Add a class for styling
         removeButton.addEventListener('click', () => removeTag(index));
+
+        listItem.appendChild(textSpan);
         listItem.appendChild(removeButton);
         selectedTagsList.appendChild(listItem);
     });
@@ -237,10 +268,16 @@ function renderEditSelectedTags() {
     editingTags.forEach((tag, index) => {
         const capitalizedTag = tag.charAt(0).toUpperCase() + tag.slice(1); // Capitalize first letter
         const listItem = document.createElement('li');
-        listItem.textContent = capitalizedTag;
+
+        const textSpan = document.createElement('span');
+        textSpan.innerHTML = `<i class="fas fa-tag"></i> ${capitalizedTag}`; // Use tag icon
+
         const removeButton = document.createElement('button');
-        removeButton.textContent = 'X';
+        removeButton.innerHTML = '<i class="fas fa-times"></i>'; // Use times icon for remove
+        removeButton.classList.add('remove-tag-button'); // Add a class for styling
         removeButton.addEventListener('click', () => removeEditTag(index));
+
+        listItem.appendChild(textSpan);
         listItem.appendChild(removeButton);
         editSelectedTagsList.appendChild(listItem);
     });
@@ -316,11 +353,34 @@ async function deleteDish(dishId) {
 }
 
 const openEditModalButton = document.getElementById('openEditModal');
+
+async function populateTagButtons() {
+    const tags = await loadTagsFromFirestore();
+    tagButtonsContainer.innerHTML = ''; // Clear previous buttons
+
+    tags.forEach(tag => {
+        const button = document.createElement('button');
+        button.textContent = tag.name;
+        button.dataset.tag = tag.name.toLowerCase(); // Store tag for filtering
+        button.addEventListener('click', () => {
+            currentFilterTag = button.dataset.tag;
+            filterDishesByTag(currentFilterTag);
+            // Update button style to indicate active filter (optional)
+            const allButtons = tagButtonsContainer.querySelectorAll('button');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            filterPopup.style.display = 'none'; // Close popup after filtering
+        });
+        tagButtonsContainer.appendChild(button);
+    });
+}
+
 if (openEditModalButton) {
-    openEditModalButton.addEventListener('click', (dishId) => { // Ensure dishId is passed here
-        loadDishDetails(dishId);
+    openEditModalButton.addEventListener('click', (dishId) => {
+        loadDishDetails(dishId); // Load dish details first
         editDishModal.style.display = 'block';
-        populateTagDropdowns(); // Load tags when Edit Dish modal opens
+        // Call populateTagDropdowns AFTER the modal is visible
+        populateTagDropdowns();
     });
 }
 
@@ -333,6 +393,9 @@ async function openEditModal(dishId, dishName, ingredients, tags) {
 
     editingTags = [...tags]; // Initialize editingTags with existing tags
     renderEditSelectedTags();
+
+    // Ensure tags are populated in the dropdown when the edit modal opens
+    populateTagDropdowns();
 }
 
 async function saveEditedDish() {
@@ -393,26 +456,7 @@ async function loadTagsFromFirestore() {
     }
 }
 
-async function populateTagButtons() {
-    const tags = await loadTagsFromFirestore();
-    tagButtonsContainer.innerHTML = ''; // Clear previous buttons
 
-    tags.forEach(tag => {
-        const button = document.createElement('button');
-        button.textContent = tag.name;
-        button.dataset.tag = tag.name.toLowerCase(); // Store tag for filtering
-        button.addEventListener('click', () => {
-            currentFilterTag = button.dataset.tag;
-            filterDishesByTag(currentFilterTag);
-            // Update button style to indicate active filter (optional)
-            const allButtons = tagButtonsContainer.querySelectorAll('button');
-            allButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            filterPopup.style.display = 'none'; // Close popup after filtering
-        });
-        tagButtonsContainer.appendChild(button);
-    });
-}
 
 async function loadAndDisplayTags() {
     try {
@@ -431,12 +475,18 @@ async function loadAndDisplayTags() {
 function renderExistingTags(tags) {
     existingTagsList.innerHTML = '';
     tags.forEach(tag => {
+        const capitalizedTagName = tag.name.charAt(0).toUpperCase() + tag.name.slice(1);
         const listItem = document.createElement('li');
-        listItem.textContent = tag.name;
+
+        const textSpan = document.createElement('span');
+        textSpan.innerHTML = `<i class="fas fa-tag"></i> ${capitalizedTagName}`;
+
         const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'X'; // Changed the text to "X"
+        deleteButton.innerHTML = '<i class="fas fa-times"></i>';
         deleteButton.classList.add('delete-tag-button');
         deleteButton.addEventListener('click', () => deleteTagFromFirestore(tag.id));
+
+        listItem.appendChild(textSpan);
         listItem.appendChild(deleteButton);
         existingTagsList.appendChild(listItem);
     });
@@ -571,6 +621,7 @@ if (saveNewTagButton) {
 
 // Call populateTagButtons on page load
 populateTagButtons();
+populateTagDropdowns();
 loadDishesFromFirestore();
 
 if (filterTagButton) {

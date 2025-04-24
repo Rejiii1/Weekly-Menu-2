@@ -1097,36 +1097,9 @@ margin-left: 10px;;
   flex-grow: 1;
 }
 
-#addTagPopup #existingTagsList {
-  list-style: none;
-  padding: 0;
-}
 
-#addTagPopup #existingTagsList li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
 
-#addTagPopup #existingTagsList li:last-child {
-  border-bottom: none;
-}
 
-#addTagPopup #existingTagsList li button.delete-tag-button {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 0.8em;
-}
-
-#addTagPopup #existingTagsList li button.delete-tag-button:hover {
-  background-color: #d32f2f;
-}
 
 /* Style for the modal content */
 #addDishModal .modal-content,
@@ -1142,6 +1115,7 @@ margin-left: 10px;;
     flex-direction: column;
     gap: 5px; /* Reduce gap between elements */
     margin-bottom: 150px;
+    
 }
 
 /* Style for the close button */
@@ -1233,7 +1207,6 @@ margin-left: 10px;;
     margin-bottom: 10px; /* Reduce bottom margin */
     border: 1px solid #eee;
     border-radius: 4px;
-    margin-top: 0px;
 }
 
 #addDishModal #ingredientsList li,
@@ -1245,7 +1218,24 @@ margin-left: 10px;;
 #addDishModal #ingredientsList li button,
 #editDishModal #editIngredientsList li button {
     padding: 4px 8px; /* Reduce padding */
-    font-size: 0.7em; /* Reduce font size */
+    font-size: 1em; /* Reduce font size */
+    margin-left: auto;
+    background-color: #f44336; /* Red background for delete button */
+}
+
+#ingredientsList li,
+#editIngredientsList li {
+  display: flex;
+  justify-content: space-between; /* Put space between text and button */
+  align-items: center; /* Vertically align items */
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+#IngredientsList li div:last-child,
+#editIngredientsList li div:last-child { /* Target the button's div */
+  padding: 4px 8px; /* Reduce padding */
+  font-size: 0.7em; /* Reduce font size */
+  margin-left: auto;
 }
 
 /* Style for the tags section heading */
@@ -1269,19 +1259,15 @@ margin-left: 10px;;
 #editDishModal #editSelectedTagsList {
     gap: 3px; /* Reduce gap */
     margin-bottom: 10px; /* Reduce bottom margin */
+    padding-left: 0px;
 }
 
-#addDishModal #selectedTagsList li,
-#editDishModal #editSelectedTagsList li {
-    padding: 4px 8px; /* Reduce padding */
-    font-size: 0.8em; /* Reduce font size */
-    gap: 3px; /* Reduce gap */
-}
+
 
 #addDishModal #selectedTagsList li button,
 #editDishModal #editSelectedTagsList li button {
     font-size: 0.9em; /* Adjust delete button size */
-    margin-left: 3px; /* Add a little space */
+    margin-left: auto; /* Add a little space */
 }
 
 /* Style for the save buttons */
@@ -1291,6 +1277,102 @@ margin-left: 10px;;
     font-size: 1em; /* Reduce font size */
 }
 
+#addDishModal #selectedTagsList li,
+#editSelectedTagsList li {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between tag and button */
+  background-color: #e0f7fa;
+  color: #00838f;
+  border: 1px solid #b2ebf2;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin-right: 5px; /* Space between tags */
+  margin-bottom: 5px; /* Space between rows of tags */
+}
+
+#editSelectedTagsList li span i {
+  margin-right: 5px; /* Space between the tag icon and text */
+}
+
+#editSelectedTagsList li button.remove-tag-button {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0;
+  line-height: 1;
+}
+
+#editSelectedTagsList li button.remove-tag-button:hover {
+  color: #b71c1c;
+}
+
+#selectedTagsList li {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between tag and button */
+  background-color: #e0f7fa;
+  color: #00838f;
+  border: 1px solid #b2ebf2;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin-right: 5px; /* Space between tags */
+  margin-bottom: 5px; /* Space between rows of tags */
+}
+
+#selectedTagsList li span i {
+  margin-right: 5px; /* Space between the tag icon and text */
+}
+
+#selectedTagsList li button.remove-tag-button {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0;
+  line-height: 1;
+}
+
+#selectedTagsList li button.remove-tag-button:hover {
+  color: #b71c1c;
+}
+
+#existingTagsList li {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between tag and button */
+  background-color: #e0f7fa;
+  color: #00838f;
+  border: 1px solid #b2ebf2;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin-right: 5px; /* Space between tags */
+  margin-bottom: 5px; /* Space between rows of tags */
+}
+
+#existingTagsList li span i {
+  margin-right: 5px; /* Space between the tag icon and text */
+}
+
+#existingTagsList li button.delete-tag-button {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0;
+  line-height: 1;
+}
+
+#existingTagsList li button.delete-tag-button:hover {
+  color: #b71c1c;
+}
 
 /* on phone specific */
 
