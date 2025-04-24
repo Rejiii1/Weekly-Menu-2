@@ -16,29 +16,100 @@
 
     <div class="dish-library-management">
 
-        <h2>Add New Dish</h2>
-        <div class="add-new-dish-form">
-            <input type="text" id="newDishName" placeholder="Dish Name">
-            <textarea id="newDishIngredients" placeholder="Ingredients (comma-separated)"></textarea>
-            <button id="addDishWithIngredientsButton">Add Dish</button>
+        <div class="current-dishes-header">
+            <button id="openAddDishModal"><i class="fas fa-square-plus"></i></button>
+            <div class="filter-section">
+                <button id="openFilterPopup"><i class="fas fa-filter"></i></button>
+                <div id="filterPopup" class="tag-popup">
+                    <div class="popup-header">
+                        <button id="clearFilter">All</button>
+                    </div>
+                    <div id="tagButtonsContainer">
+                        </div>
+                    <div class="popup-footer">
+                        <button id="openAddTagPopup"><i class="fas fa-pencil"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="addTagPopup" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeAddTagModal">&times;</span>
+                    <h3>Manage Tags</h3>
+                    <div class="add-new-tag">
+                        <label for="newTagName">New Tag:</label>
+                        <input type="text" id="newTagName" placeholder="New Tag Name">
+                        <button id="saveNewTagButton">Add Tag</button>
+                    </div>
+                    <h4>Existing Tags:</h4>
+                    <ul id="existingTagsList">
+                        </ul>
+                </div>
+            </div>
+
         </div>
-        
-        <h2>Current Dishes</h2>
-        <ul id="dishListManagement">
-        </ul>
-        
-        <div id="editDishModal" class="edit-dish-modal">
+        <div id="dishListContainer" class="dish-grid">
+            </div>
+
+        <div id="addDishModal" class="modal">
             <div class="modal-content">
-                <span class="close-button" id="closeEditModal">&times;</span>
-                <h3>Edit Dish</h3>
-                <label for="editDishName">Dish Name:</label>
-                <input type="text" id="editDishName">
-                <label for="editDishIngredients">Ingredients (comma-separated):</label>
-                <textarea id="editDishIngredients"></textarea>
-                <button id="saveEditedDishButton">Save Changes</button>
-                <input type="hidden" id="currentDishName">
+                <span class="close-button" id="closeAddModal">&times;</span>
+                <h3>Add New Dish</h3>
+                <label for="newDishName">Dish Name:</label>
+                <input type="text" id="newDishName" placeholder="Dish Name">
+
+                <h4>Ingredients:</h4>
+                <div class="add-ingredient">
+                    <input type="text" id="newDishIngredientName" placeholder="Ingredient Name">
+                    <input type="text" id="newDishIngredientQuantity" placeholder="Quantity">
+                    <button id="addDishWithIngredientsButton"><i class="fas fa-plus"></i></button>
+                </div>
+                <ul id="ingredientsList">
+                    </ul>
+
+                <h4>Tags:</h4>
+                <select id="availableTags">
+                    <option value="">Add a tag</option>
+                    </select>
+                    <ul id="selectedTagsList"></ul>
+                    <button id="addDishButton">Save Dish</button>
+                
+                
+            </div>
             </div>
         </div>
+
+        
+        <div id="dishListContainer" class="dish-grid">
+            </div>
+
+            <div id="editDishModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeEditModal">&times;</span>
+                    <h3>Edit Dish</h3>
+                    <label for="editDishName">Dish Name:</label>
+                    <input type="text" id="editDishName">
+            
+                    <h4>Ingredients:</h4>
+                    <ul id="editIngredientsList">
+                        </ul>
+                    <div class="add-ingredient">
+                        <input type="text" id="editNewIngredientName" placeholder="Ingredient Name">
+                        <input type="text" id="editNewIngredientQuantity" placeholder="Quantity">
+                        <button id="editAddIngredientButton"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <h4>Tags:</h4>
+                    <div class="add-tag">
+                        <select id="editAvailableTags">
+                            <option value="">Add a tag</option>
+                            </select>
+                    </div>
+                    <ul id="editSelectedTagsList"></ul>
+            
+                    <button id="saveEditedDishButton">Save Changes</button>
+                    <input type="hidden" id="currentDishId">
+                </div>
+            </div>
     </div>
 
     <div class="bottom-navigation">
