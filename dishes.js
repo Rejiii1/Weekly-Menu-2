@@ -65,6 +65,7 @@ const saveNewTagButton = document.getElementById('saveNewTagButton');
 const existingTagsList = document.getElementById('existingTagsList');
 const selectedTagsList = document.getElementById('selectedTagsList');
 
+
 let currentIngredients = []; // To hold ingredients for a new dish
 let editingIngredients = {}; // To hold ingredients for the dish being edited
 let currentTags = []; // To hold tags for a new dish
@@ -574,17 +575,21 @@ function renderDishes(dishesToRender) {
 function filterDishesByTag(tagToFilter) {
     let filteredDishes = [];
     if (!tagToFilter) {
-        filteredDishes = allLoadedDishes; // Show all dishes if no filter
+        filteredDishes = allLoadedDishes;
     } else {
-        filteredDishes = allLoadedDishes.filter(dish => dish.tags && dish.tags.includes(tagToFilter));
+        const lowerCaseFilter = tagToFilter.toLowerCase();
+        filteredDishes = allLoadedDishes.filter(dish =>
+            dish.tags && dish.tags.some(tag => tag.toLowerCase() === lowerCaseFilter)
+        );
     }
-    renderDishes(filteredDishes); // Render the filtered (or all) dishes
+    renderDishes(filteredDishes);
 }
 
 // Event listener for the filter dropdown
 
 if (openFilterPopupButton) {
-    openFilterPopupButton.addEventListener('click', () => {
+    openFilterPopupButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the click from immediately triggering the window listener
         filterPopup.style.display = 'flex';
     });
 }
@@ -739,7 +744,8 @@ window.addEventListener('click', (event) => {
     if (event.target === addTagPopup) {
         closeAddTagModal();
     }
-    if (filterPopup.style.display === 'flex' && event.target === filterPopup) {
+    // Modified condition for the filter popup
+    if (filterPopup.style.display === 'flex' && !filterPopup.contains(event.target)) {
         filterPopup.style.display = 'none';
         currentFilterTag = '';
         filterDishesByTag(currentFilterTag);
