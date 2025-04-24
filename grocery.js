@@ -284,34 +284,88 @@ async function clearAllGroceryList() {
         return;
     }
 
-    const meals = await fetchMealsFromFirestore(userId, new Timestamp(Date.now() / 1000, 0)); // Fetch current meals
-
-    const uniqueDishIds = new Set();
-    for (const meal of meals) {
-        const dishId = await getDishIdByName(meal.dishName);
-        if (dishId) {
-            uniqueDishIds.add(dishId);
+    // 1.  Clear the 'haveIt' status for *all* ingredients in *all* dishes.
+    //     This is the key change to incorporate the original functionality.
+    try {
+        const allDishesSnapshot = await getDocs(collection(db, 'dishes2'));
+        for (const dishDoc of allDishesSnapshot.docs) {
+            const ingredientsCollectionRef = collection(db, 'dishes2', dishDoc.id, 'ingredients');
+            const ingredientsSnapshot = await getDocs(ingredientsCollectionRef);
+            for (const ingredientDoc of ingredientsSnapshot.docs) {
+                await updateDoc(ingredientDoc.ref, { haveIt: false });
+                console.log(`Reset haveIt to false for ingredient ${ingredientDoc.id} in dish ${dishDoc.id}`);
+            }
         }
+        console.log("Cleared 'haveIt' status for all ingredients in all dishes.");
+    } catch (error) {
+        console.error("Error clearing 'haveIt' status for all dishes:", error);
+        //  IMPORTANT:  Consider whether to continue clearing the grocery list if this fails.
+        //  For now, we log the error and continue, but you might want to stop the process.
     }
 
-    for (const dishId of uniqueDishIds) {
-        const ingredientsCollectionRef = collection(db, 'dishes2', dishId, 'ingredients');
-        const ingredientsSnapshot = await getDocs(ingredientsCollectionRef);
-        ingredientsSnapshot.forEach(async (doc) => {
-            await updateDoc(doc.ref, { haveIt: false });
-        });
-    }
 
-    localStorage.removeItem('groceryList');
-    groceryListCache = []; // Clear cache
-    // Refresh the grocery list
-    generateGroceryList();
+    // 2.  Fetch data from Firebase to refresh the grocery list.
+    const today = new Date();
+    const startDate = Timestamp.fromDate(new Date(today.getFullYear(), today.getMonth(), today.getDate()));
+    const meals = await fetchMealsFromFirestore(userId, startDate);
+
+
+    // 3. Process meals and ingredients to generate grocery list data.
+    const ingredientQuantities = {};
+      if (meals && meals.length > 0) { //Fixes issue where if no meals are planned, an error is thrown
+        for (const meal of meals) {
+            const dishName = meal.dishName;
+            const dishId = await getDishIdByName(dishName); // You still need this function
+            if (dishId) {
+                const ingredients = await fetchIngredientsForDish(dishId);  // You still need this function
+                ingredients.forEach(ingredient => {
+                    const cleanIngredientName = ingredient.name.toLowerCase().trim();
+                    const quantityWithUnit = ingredient.quantity || '';
+                    const unitMatch = quantityWithUnit.match(/[a-zA-Z]+/);
+                    const quantityMatch = quantityWithUnit.match(/[\d.]+/);
+                    const quantity = quantityMatch ? parseFloat(quantityMatch[0]) : 1;
+                    const unit = unitMatch ? unitMatch[0].trim() : '';
+                    const haveIt = ingredient.haveIt || false;  //This will now always be false, but is kept for consistency
+
+                    if (ingredientQuantities[cleanIngredientName]) {
+                        ingredientQuantities[cleanIngredientName].totalQuantity += quantity;
+                        if (unit && ingredientQuantities[cleanIngredientName].unit === '') {
+                            ingredientQuantities[cleanIngredientName].unit = unit;
+                        } else if (unit && ingredientQuantities[cleanIngredientName].unit !== unit) {
+                            console.warn(`Inconsistent units found for ${cleanIngredientName}: ${ingredientQuantities[cleanIngredientName].unit} and ${unit}`);
+                        }
+                        ingredientQuantities[cleanIngredientName].haveIt = haveIt; //  Always false, but kept.
+                        if (!ingredientQuantities[cleanIngredientName].dishIds.includes(dishId)) {
+                            ingredientQuantities[cleanIngredientName].dishIds.push(dishId);
+                        }
+                    } else {
+                        ingredientQuantities[cleanIngredientName] = {
+                            name: cleanIngredientName,
+                            totalQuantity: quantity,
+                            unit: unit,
+                            haveIt: haveIt, // Always false, but kept.
+                            dishIds: [dishId]
+                        };
+                    }
+                });
+            }
+        }
+      }
+
+
+    // 4. Update local storage and the UI.
+    const groceryList = Object.values(ingredientQuantities).sort((a, b) => a.name.localeCompare(b.name));
+    localStorage.setItem('groceryList', JSON.stringify(groceryList));
+    groceryListCache = groceryList;  // Update the cache
+    displayGroceryList(groceryList);    // Refresh the display
+
 }
 
-// Event listener for the clear all button
+// (Keep your existing event listener)
 if (clearGroceryListButton) {
     clearGroceryListButton.addEventListener('click', clearAllGroceryList);
 }
+
 
 // Initial generation of the grocery list (still in the onAuthStateChanged)
 onAuthStateChanged(auth, (user) => {

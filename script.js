@@ -77,7 +77,7 @@ import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/fi
                 return;
             }
             try {
-                const dishesCollection = collection(db, 'dishes');
+                const dishesCollection = collection(db, 'dishes2');
                 const dishSnapshot = await getDocs(dishesCollection);
                 const dishes = dishSnapshot.docs.map(doc => ({ id: doc.id, name: doc.data().name })); // Get ID and name
 

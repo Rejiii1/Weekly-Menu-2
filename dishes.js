@@ -4,7 +4,7 @@
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, query, where} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js"; // Import necessary auth functions
 
 // Firebase configuration (make sure this matches what's in your HTML)
@@ -724,39 +724,111 @@ async function saveEditedDish() {
     }
 }
 
+// --- Delete Dish Function ---
 async function deleteDish(dishId) {
-    // Find the dish name for the confirmation message
-    const dishToDelete = allLoadedDishes.find(d => d.id === dishId);
-    const dishNameToConfirm = dishToDelete ? capitalizeWords(dishToDelete.name) : 'this dish';
-
-    if (!confirm(`Are you sure you want to permanently delete "${dishNameToConfirm}"? This will also delete all its ingredients.`)) {
+    if (!dishId) {
+        console.error("deleteDish called with invalid dishId");
+        alert("Error: Dish ID is missing."); // Provide user feedback
         return;
     }
 
     try {
-        // 1. Delete ingredients sub-collection first (optional, but good practice)
+        // 1. Delete the main dish document from the 'dishes2' collection
+        const dishDocRef = doc(db, 'dishes2', dishId);
+        await deleteDoc(dishDocRef);
+        console.log(`Dish deleted from Firestore: ${dishId}`);
+
+        // 2. Delete any associated ingredients (assuming they are in a subcollection)
+        //    This is crucial to maintain data consistency
         const ingredientsCollectionRef = collection(db, 'dishes2', dishId, 'ingredients');
         const ingredientsSnapshot = await getDocs(ingredientsCollectionRef);
-        const deleteIngredientPromises = ingredientsSnapshot.docs.map(doc => deleteDoc(doc.ref));
-        await Promise.all(deleteIngredientPromises);
-        console.log("Ingredients deleted for dish:", dishId);
 
+        // Use a standard for-of loop for asynchronous operations inside the loop
+        for (const ingredientDoc of ingredientsSnapshot.docs) {
+            await deleteDoc(ingredientDoc.ref); // Delete each ingredient document
+            console.log(`Ingredient deleted: ${ingredientDoc.id} for dish ${dishId}`);
+        }
 
-        // 2. Delete the main dish document
-        await deleteDoc(doc(db, 'dishes2', dishId));
-        console.log("Dish deleted:", dishId);
+        // 3. Delete meal plan entries that use this dish
+        await deleteMealsUsingDish(dishId);
 
-        // Refresh data from Firestore
+        // 4. Optionally remove the dish from the UI
+        removeDishFromUI(dishId);
         await fetchDishesFromFirestore();
-        alert(`"${dishNameToConfirm}" deleted successfully!`); // Feedback
+        // 6. Close the modal (optional, if you want it to close automatically)
+        const editDishModal = document.getElementById('editDishModal');
+        if (editDishModal) {
+            if (typeof editDishModal.hide === 'function') {
+                editDishModal.hide(); // custom method? cool, use it
+            } else {
+                editDishModal.style.display = 'none'; // fallback method
+            }
+        }
+        
+
 
     } catch (error) {
-        console.error("Error deleting dish:", error);
-        alert('Failed to delete dish.');
+        console.error("Error deleting dish and related data:", error);
+        alert("An error occurred while deleting the dish. Please try again."); // Inform the user
     }
 }
 
+// --- Helper Functions ---
 
+/**
+ * Removes a dish from the UI.  This function assumes you have a way to
+ * identify and remove the dish element (e.g., by a data-dish-id attribute).
+ */
+function removeDishFromUI(dishId) {
+    const dishElement = document.querySelector(`[data-dish-id="${dishId}"]`);
+    if (dishElement) {
+        dishElement.remove(); // Remove the dish element from the DOM
+        console.log(`Dish removed from UI: ${dishId}`);
+    } else {
+        console.log(`Dish ${dishId} removed from Firestore; UI element not found (maybe already removed).`);
+;
+    }
+}
+
+/**
+ * Deletes meal plan entries that use the specified dish.
+ */
+async function deleteMealsUsingDish(dishId) {
+    try {
+        const mealsCollection = collection(db, 'meals');
+        const q = query(mealsCollection, where('dishName', '==', dishId));
+        const mealsSnapshot = await getDocs(q);
+
+        for (const mealDoc of mealsSnapshot.docs) {
+            await deleteDoc(mealDoc.ref);
+            console.log(`Meal plan entry deleted: ${mealDoc.id} (dishId: ${dishId})`);
+        }
+    } catch (error) {
+        console.error(`Error deleting meal plan entries for dish ${dishId}:`, error);
+        // Consider if you want to alert the user or take other action.
+        // For now, we log and continue, but you might want to handle this more strictly.
+    }
+}
+
+// --- Event Listener for the Delete Button ---
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteEditedDishButton = document.getElementById('deleteEditedDishButton');
+
+    if (deleteEditedDishButton) {
+        deleteEditedDishButton.addEventListener('click', async () => {
+            const editDishModal = document.getElementById('editDishModal');
+            const dishId = document.getElementById('currentDishId')?.value;
+            if (dishId) {
+                await deleteDish(dishId);
+            } else {
+                console.error("Dish ID not found in modal.");
+                alert("Error: Dish ID not found. Cannot delete.");
+            }
+        });
+    } else {
+        console.warn("deleteEditedDishButton not found. Ensure the button has the correct ID.");
+    }
+});
 // --- Local Storage Cache ---
 
 function loadDishesFromCache() {
