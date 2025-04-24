@@ -3,13 +3,13 @@ import { getFirestore, collection, getDocs, updateDoc, query, where, Timestamp }
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCd_HEHyheAvr8wVvZreP_xKiWsG05PcCc",
-  authDomain: "weekly-menu-2.firebaseapp.com",
-  projectId: "weekly-menu-2",
-  storageBucket: "weekly-menu-2.firebasestorage.app",
-  messagingSenderId: "600774461017",
-  appId: "1:600774461017:web:70238ba949e473171e5348",
-  measurementId: "G-5FX6NGDP97"
+    apiKey: "AIzaSyCd_HEHyheAvr8wVvZreP_xKiWsG05PcCc",
+    authDomain: "weekly-menu-2.firebaseapp.com",
+    projectId: "weekly-menu-2",
+    storageBucket: "weekly-menu-2.firebasestorage.app",
+    messagingSenderId: "600774461017",
+    appId: "1:600774461017:web:70238ba949e473171e5348",
+    measurementId: "G-5FX6NGDP97"
 };
 
 // Initialize Firebase
@@ -18,6 +18,8 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const groceryListContainer = document.getElementById('groceryList'); // Get the grocery list container
+const clearGroceryListButton = document.getElementById('clearGroceryList');
+
 
 async function fetchMealsFromFirestore(userId, startDate) {
     try {
@@ -68,9 +70,6 @@ async function getDishIdByName(dishName) {
 }
 
 // Function to generate the grocery list
-
-const clearGroceryListButton = document.getElementById('clearGroceryList');
-
 function pluralizeUnit(unit, quantity) {
     if (quantity > 1 && unit) {
         if (unit.toLowerCase() === 'box') {
@@ -102,6 +101,8 @@ async function updateIngredientHaveIt(dishId, ingredientName, haveIt) {
     }
 }
 
+let groceryListCache = []; // Store the generated grocery list
+
 function displayGroceryList(groceryList) {
     groceryListContainer.innerHTML = '';
 
@@ -120,13 +121,24 @@ function displayGroceryList(groceryList) {
             checkbox.dataset.dishIds = JSON.stringify(item.dishIds);
             checkbox.checked = item.haveIt || false;
 
-            checkbox.addEventListener('change', (event) => {
+            checkbox.addEventListener('change', (event) => { // Remove async here for direct DOM manipulation
                 const ingredientName = event.target.dataset.ingredientName;
                 const dishIds = JSON.parse(event.target.dataset.dishIds);
                 const isChecked = event.target.checked;
 
+                // Update the local groceryListCache immediately
+                const updatedList = groceryListCache.map(cachedItem => {
+                    if (cachedItem.name === ingredientName) {
+                        return { ...cachedItem, haveIt: isChecked };
+                    }
+                    return cachedItem;
+                });
+                groceryListCache = updatedList;
+                displayGroceryList(groceryListCache); // Re-render with updated cache
+
+                // Update Firebase in the background (without awaiting)
                 dishIds.forEach(dishId => {
-                    updateIngredientHaveIt(dishId, ingredientName, isChecked);
+                     updateIngredientHaveIt(dishId, ingredientName, isChecked);
                 });
             });
 
@@ -157,6 +169,8 @@ function displayGroceryList(groceryList) {
     }
 }
 
+let isInitialLoad = true; // Track initial load
+
 async function generateGroceryList() {
     const userId = auth.currentUser?.uid;
     if (!userId) {
@@ -168,49 +182,96 @@ async function generateGroceryList() {
     const today = new Date();
     const startDate = new Timestamp(today.getTime() / 1000, 0);
 
-    const meals = await fetchMealsFromFirestore(userId, startDate);
-    if (meals.length === 0) {
-        groceryListContainer.innerHTML = '<li>No meals planned for today or later.</li>';
-        return;
-    }
+    // 1. Try to get data from localStorage first
+    let storedGroceryList = localStorage.getItem('groceryList');
+    let groceryList;
 
-    const ingredientQuantities = {}; // { ingredientName: { name: string, totalQuantity: number, unit: string, haveIt: boolean, dishIds: string[] } }
-
-    for (const meal of meals) {
-        const dishName = meal.dishName;
-        const dishId = await getDishIdByName(dishName);
-        if (dishId) {
-            const ingredients = await fetchIngredientsForDish(dishId);
-            ingredients.forEach(ingredient => {
-                const cleanIngredientName = ingredient.name.toLowerCase().trim();
-                const quantityWithUnit = ingredient.quantity || '';
-                const unitMatch = quantityWithUnit.match(/[a-zA-Z]+/);
-                const quantityMatch = quantityWithUnit.match(/[\d.]+/);
-                const quantity = quantityMatch ? parseFloat(quantityMatch[0]) : 1;
-                const unit = unitMatch ? unitMatch[0].trim() : '';
-                const haveIt = ingredient.haveIt || false; // Get haveIt status
-
-                if (ingredientQuantities[cleanIngredientName]) {
-                    ingredientQuantities[cleanIngredientName].totalQuantity += quantity;
-                    if (unit && ingredientQuantities[cleanIngredientName].unit === '') {
-                        ingredientQuantities[cleanIngredientName].unit = unit;
-                    } else if (unit && ingredientQuantities[cleanIngredientName].unit !== unit) {
-                        console.warn(`Inconsistent units found for ${cleanIngredientName}: ${ingredientQuantities[cleanIngredientName].unit} and ${unit}`);
-                    }
-                    ingredientQuantities[cleanIngredientName].haveIt = ingredientQuantities[cleanIngredientName].haveIt || haveIt; // Keep true if already true
-                    if (!ingredientQuantities[cleanIngredientName].dishIds.includes(dishId)) {
-                        ingredientQuantities[cleanIngredientName].dishIds.push(dishId);
-                    }
-                } else {
-                    ingredientQuantities[cleanIngredientName] = { name: cleanIngredientName, totalQuantity: quantity, unit: unit, haveIt: haveIt, dishIds: [dishId] };
-                }
-            });
+    if (storedGroceryList && !isInitialLoad) { // Only use stored data if not initial load
+        try {
+            groceryList = JSON.parse(storedGroceryList);
+            groceryListCache = groceryList; // Also update the cache here
+            displayGroceryList(groceryList); // Display cached data
+        } catch (e) {
+            console.error("Error parsing stored grocery list", e);
+            localStorage.removeItem('groceryList'); // Remove invalid data
         }
     }
 
-    const groceryList = Object.values(ingredientQuantities).sort((a, b) => a.name.localeCompare(b.name));
-    displayGroceryList(groceryList);
+    // 2. Fetch data from Firebase
+    try {
+        const meals = await fetchMealsFromFirestore(userId, startDate);
+        if (meals.length === 0) {
+            groceryListContainer.innerHTML = '<li>No meals planned for today or later.</li>';
+            return;
+        }
+
+        const ingredientQuantities = {};
+
+        for (const meal of meals) {
+            const dishName = meal.dishName;
+            const dishId = await getDishIdByName(dishName);
+            if (dishId) {
+                const ingredients = await fetchIngredientsForDish(dishId);
+                ingredients.forEach(ingredient => {
+                    const cleanIngredientName = ingredient.name.toLowerCase().trim();
+                    const quantityWithUnit = ingredient.quantity || '';
+                    const unitMatch = quantityWithUnit.match(/[a-zA-Z]+/);
+                    const quantityMatch = quantityWithUnit.match(/[\d.]+/);
+                    const quantity = quantityMatch ? parseFloat(quantityMatch[0]) : 1;
+                    const unit = unitMatch ? unitMatch[0].trim() : '';
+                    const haveIt = ingredient.haveIt || false;
+
+                    if (ingredientQuantities[cleanIngredientName]) {
+                        ingredientQuantities[cleanIngredientName].totalQuantity += quantity;
+                        if (unit && ingredientQuantities[cleanIngredientName].unit === '') {
+                            ingredientQuantities[cleanIngredientName].unit = unit;
+                        } else if (unit && ingredientQuantities[cleanIngredientName].unit !== unit) {
+                            console.warn(`Inconsistent units found for ${cleanIngredientName}: ${ingredientQuantities[cleanIngredientName].unit} and ${unit}`);
+                        }
+                        ingredientQuantities[cleanIngredientName].haveIt = ingredientQuantities[cleanIngredientName].haveIt || haveIt;
+                        if (!ingredientQuantities[cleanIngredientName].dishIds.includes(dishId)) {
+                            ingredientQuantities[cleanIngredientName].dishIds.push(dishId);
+                        }
+                    } else {
+                        ingredientQuantities[cleanIngredientName] = {
+                            name: cleanIngredientName,
+                            totalQuantity: quantity,
+                            unit: unit,
+                            haveIt: haveIt,
+                            dishIds: [dishId]
+                        };
+                    }
+                });
+            }
+        }
+
+        groceryList = Object.values(ingredientQuantities).sort((a, b) => a.name.localeCompare(b.name));
+        groceryListCache = groceryList; // Store in cache
+        localStorage.setItem('groceryList', JSON.stringify(groceryList));
+        displayGroceryList(groceryList); // Display Firebase data
+
+    } catch (error) {
+        console.error("Error fetching or processing grocery list:", error);
+        // Display error to user
+         if (isInitialLoad && storedGroceryList) {
+             //If initial load, and there is stored data, use that.
+             try{
+                groceryList = JSON.parse(storedGroceryList);
+                groceryListCache = groceryList;
+                displayGroceryList(groceryList);
+             } catch(e){
+                console.error("Error parsing local storage",e)
+             }
+        } else {
+             groceryListContainer.innerHTML = '<li>Error: Could not retrieve grocery list.</li>'; // keep the message
+        }
+       
+    } finally {
+        isInitialLoad = false; // Set to false after the first load attempt
+    }
 }
+
+
 
 async function clearAllGroceryList() {
     const userId = auth.currentUser?.uid;
@@ -237,6 +298,8 @@ async function clearAllGroceryList() {
         });
     }
 
+    localStorage.removeItem('groceryList');
+    groceryListCache = []; // Clear cache
     // Refresh the grocery list
     generateGroceryList();
 }
@@ -254,15 +317,3 @@ onAuthStateChanged(auth, (user) => {
         window.location.href = 'login.html';
     }
 });
-
-// Check for user authentication when the page loads
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is logged in, generate the grocery list
-    generateGroceryList();
-  } else {
-    // User is not logged in, redirect to login page
-    window.location.href = 'login.html';
-  }
-});
-
