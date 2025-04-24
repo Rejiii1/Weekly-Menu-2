@@ -180,7 +180,11 @@ async function generateGroceryList() {
     }
 
     const today = new Date();
-    const startDate = new Timestamp(today.getTime() / 1000, 0);
+    // Create a new Date object representing the beginning of today (midnight in local time)
+    const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    // Convert the start of today to a Firestore Timestamp
+    const startDate = Timestamp.fromDate(startOfToday);
 
     // 1. Try to get data from localStorage first
     let storedGroceryList = localStorage.getItem('groceryList');
@@ -253,19 +257,19 @@ async function generateGroceryList() {
     } catch (error) {
         console.error("Error fetching or processing grocery list:", error);
         // Display error to user
-         if (isInitialLoad && storedGroceryList) {
-             //If initial load, and there is stored data, use that.
-             try{
+        if (isInitialLoad && storedGroceryList) {
+            //If initial load, and there is stored data, use that.
+            try{
                 groceryList = JSON.parse(storedGroceryList);
                 groceryListCache = groceryList;
                 displayGroceryList(groceryList);
-             } catch(e){
+            } catch(e){
                 console.error("Error parsing local storage",e)
-             }
+            }
         } else {
-             groceryListContainer.innerHTML = '<li>Error: Could not retrieve grocery list.</li>'; // keep the message
+            groceryListContainer.innerHTML = '<li>Error: Could not retrieve grocery list.</li>'; // keep the message
         }
-       
+
     } finally {
         isInitialLoad = false; // Set to false after the first load attempt
     }
