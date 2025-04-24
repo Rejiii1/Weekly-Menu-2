@@ -140,14 +140,3 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Optional: Add a logout button handler if you have a logout button in grocery.html
-const logoutButtonGrocery = document.getElementById('logoutButtonGrocery');
-if (logoutButtonGrocery) {
-  logoutButtonGrocery.addEventListener('click', () => {
-    auth.signOut().then(() => {
-      window.location.href = 'login.html'; // Redirect to login page after logout
-    }).catch((error) => {
-      console.error("Error logging out: ", error);
-    });
-  });
-}
