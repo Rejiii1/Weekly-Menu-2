@@ -83,33 +83,33 @@
         <div id="dishListContainer" class="dish-grid">
             </div>
 
-        <div id="editDishModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" id="closeEditModal">&times;</span>
-                <h3>Edit Dish</h3>
-                <label for="editDishName">Dish Name:</label>
-                <input type="text" id="editDishName">
-
-                <h4>Ingredients:</h4>
-                <ul id="editIngredientsList">
-                    </ul>
-                <div class="add-ingredient">
-                    <input type="text" id="editNewIngredientName" placeholder="Ingredient Name">
-                    <input type="text" id="editNewIngredientQuantity" placeholder="Quantity">
-                    <button id="editAddIngredientButton"><i class="fas fa-plus"></i></button>
+            <div id="editDishModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeEditModal">&times;</span>
+                    <h3>Edit Dish</h3>
+                    <label for="editDishName">Dish Name:</label>
+                    <input type="text" id="editDishName">
+            
+                    <h4>Ingredients:</h4>
+                    <ul id="editIngredientsList">
+                        </ul>
+                    <div class="add-ingredient">
+                        <input type="text" id="editNewIngredientName" placeholder="Ingredient Name">
+                        <input type="text" id="editNewIngredientQuantity" placeholder="Quantity">
+                        <button id="editAddIngredientButton"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <h4>Tags:</h4>
+                    <div class="add-tag">
+                        <select id="editAvailableTags">
+                            <option value="">Add a tag</option>
+                            </select>
+                    </div>
+                    <ul id="editSelectedTagsList"></ul>
+            
+                    <button id="saveEditedDishButton">Save Changes</button>
+                    <input type="hidden" id="currentDishId">
                 </div>
-                <h4>Tags:</h4>
-                <div class="add-tag">
-                    <select id="editAvailableTags">
-                        <option value="">Add a tag</option>
-                        </select>
-                </div>
-                <ul id="editSelectedTagsList"></ul>
-
-                <button id="saveEditedDishButton">Save Changes</button>
-                <input type="hidden" id="currentDishId">
             </div>
-        </div>
     </div>
 
     <div class="bottom-navigation">

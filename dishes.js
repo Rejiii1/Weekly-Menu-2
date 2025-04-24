@@ -65,7 +65,6 @@ const saveNewTagButton = document.getElementById('saveNewTagButton');
 const existingTagsList = document.getElementById('existingTagsList');
 const selectedTagsList = document.getElementById('selectedTagsList');
 
-
 let currentIngredients = []; // To hold ingredients for a new dish
 let editingIngredients = {}; // To hold ingredients for the dish being edited
 let currentTags = []; // To hold tags for a new dish
@@ -169,28 +168,119 @@ function clearNewDishForm() {
     renderSelectedTags(); // Re-render the empty selected tags list
 }
 
+let currentlyEditingIngredientKey = null; // To track which ingredient is being edited
 function renderIngredientsList() {
+    const ingredientsList = document.getElementById('ingredientsList');
+    if (!ingredientsList) return;
     ingredientsList.innerHTML = '';
     currentIngredients.forEach((ingredient, index) => {
         const listItem = document.createElement('li');
 
         // Create a div for the ingredient text
         const textDiv = document.createElement('div');
-        textDiv.innerHTML = `<i class="fas fa-caret-right"></i> ${ingredient.name} (${ingredient.quantity})`;
+        const capitalizedName = ingredient.name
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        textDiv.innerHTML = `<i class="fas fa-carrot"></i> ${capitalizedName} (${ingredient.quantity})`;
 
-        // Create a div for the remove button
-        const buttonDiv = document.createElement('div');
+        // Create a div for the buttons (Remove)
+        const buttonsDiv = document.createElement('div');
+
+        // Create the Remove button
         const removeButton = document.createElement('button');
         removeButton.textContent = 'X';
+        removeButton.classList.add('remove-ingredient-button');
         removeButton.addEventListener('click', () => removeIngredient(index));
-        buttonDiv.appendChild(removeButton);
+        buttonsDiv.appendChild(removeButton);
 
         // Append both divs to the list item
         listItem.appendChild(textDiv);
-        listItem.appendChild(buttonDiv);
+        listItem.appendChild(buttonsDiv);
 
         ingredientsList.appendChild(listItem);
     });
+}
+
+
+function renderEditIngredientsList() {
+    editIngredientsList.innerHTML = '';
+    for (const ingredientId in editingIngredients) {
+        const ingredient = editingIngredients[ingredientId];
+        const listItem = document.createElement('li');
+
+        // Create a div for the ingredient text
+        const textDiv = document.createElement('div');
+        const capitalizedName = ingredient.name
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+        textDiv.innerHTML = `<i class="fas fa-caret-right"></i> ${capitalizedName} (${ingredient.quantity})`;
+
+        // Create a div for the buttons (Remove and Edit)
+        const buttonsDiv = document.createElement('div');
+
+        // Create the Edit button
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.classList.add('edit-ingredient-button');
+        editButton.addEventListener('click', () => handleEditIngredient(ingredientId, ingredient.name, ingredient.quantity));
+        buttonsDiv.appendChild(editButton);
+
+        // Create the Remove button
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'X';
+        removeButton.classList.add('remove-ingredient-button');
+        removeButton.addEventListener('click', () => removeEditIngredient(ingredientId));
+        buttonsDiv.appendChild(removeButton);
+
+        // Append both divs to the list item
+        listItem.appendChild(textDiv);
+        listItem.appendChild(buttonsDiv);
+
+        editIngredientsList.appendChild(listItem);
+    }
+}
+
+function handleEditIngredient(ingredientId, ingredientName, ingredientQuantity) {
+    const editNewIngredientNameInput = document.getElementById('editNewIngredientName');
+    const editNewIngredientQuantityInput = document.getElementById('editNewIngredientQuantity');
+
+    if (editNewIngredientNameInput && editNewIngredientQuantityInput) {
+        editNewIngredientNameInput.value = ingredientName;
+        editNewIngredientQuantityInput.value = ingredientQuantity;
+        currentlyEditingIngredientKey = ingredientId; // Set the key of the ingredient being edited
+
+        // Optionally, you might want to visually indicate that an edit is in progress
+    }
+}
+
+if (editAddIngredientButton) {
+    editAddIngredientButton.addEventListener('click', () => {
+        const ingredientName = editNewIngredientNameInput.value.trim();
+        const ingredientQuantity = editNewIngredientQuantityInput.value.trim();
+        if (ingredientName && ingredientQuantity) {
+            if (currentlyEditingIngredientKey) {
+                // Update existing ingredient
+                editingIngredients[currentlyEditingIngredientKey].name = ingredientName.toLowerCase().trim();
+                editingIngredients[currentlyEditingIngredientKey].quantity = ingredientQuantity;
+                currentlyEditingIngredientKey = null; // Clear the editing key
+            } else {
+                // Add new ingredient
+                const newIngredientId = `temp-${Date.now()}`;
+                editingIngredients[newIngredientId] = { name: ingredientName.toLowerCase().trim(), quantity: ingredientQuantity, haveIt: false };
+            }
+            renderEditIngredientsList();
+            editNewIngredientNameInput.value = '';
+            editNewIngredientQuantityInput.value = '';
+        } 
+    });
+}
+
+async function removeEditIngredient(ingredientId) {
+    delete editingIngredients[ingredientId];
+    renderEditIngredientsList();
+    currentlyEditingIngredientKey = null; // Clear editing key if the edited item is removed
 }
 
 function removeIngredient(index) {
@@ -207,30 +297,7 @@ function clearEditDishForm() {
     currentDishIdInput.value = '';
 }
 
-function renderEditIngredientsList() {
-    editIngredientsList.innerHTML = '';
-    for (const ingredientId in editingIngredients) {
-        const ingredient = editingIngredients[ingredientId];
-        const listItem = document.createElement('li');
 
-        // Create a div for the ingredient text
-        const textDiv = document.createElement('div');
-        textDiv.innerHTML = `<i class="fas fa-caret-right"></i> ${ingredient.name} (${ingredient.quantity})`;
-
-        // Create a div for the remove button
-        const buttonDiv = document.createElement('div');
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'X';
-        removeButton.addEventListener('click', () => removeEditIngredient(ingredientId));
-        buttonDiv.appendChild(removeButton);
-
-        // Append both divs to the list item
-        listItem.appendChild(textDiv);
-        listItem.appendChild(buttonDiv);
-
-        editIngredientsList.appendChild(listItem);
-    }
-}
 
 function renderSelectedTags() {
     const selectedTagsList = document.getElementById('selectedTagsList');
@@ -258,10 +325,7 @@ function removeTag(index) {
     renderSelectedTags();
 }
 
-async function removeEditIngredient(ingredientId) {
-    delete editingIngredients[ingredientId];
-    renderEditIngredientsList();
-}
+
 
 function renderEditSelectedTags() {
     const editSelectedTagsList = document.getElementById('editSelectedTagsList');
@@ -303,24 +367,24 @@ async function saveDishToFirestore() {
         try {
             const dishData = {
                 name: dishName,
-                tags: currentTags, // Use the currentTags array
+                tags: currentTags,
             };
 
             const dishRef = await addDoc(collection(db, 'dishes2'), dishData);
 
-            // Save ingredients as a sub-collection
+            // Save ingredients as a sub-collection, ensuring lowercase names
             const ingredientsCollectionRef = collection(db, 'dishes2', dishRef.id, 'ingredients');
             for (const ingredient of currentIngredients) {
                 await addDoc(ingredientsCollectionRef, {
-                    name: ingredient.name,
+                    name: ingredient.name.toLowerCase().trim(), // Convert to lowercase and trim
                     quantity: ingredient.quantity,
-                    haveIt: false // Default value
+                    haveIt: false
                 });
             }
 
             clearNewDishForm();
             closeAddDishModal();
-            loadDishesFromFirestore(); // Reload the displayed dishes
+            loadDishesFromFirestore();
         } catch (error) {
             console.error("Error adding dish:", error);
             alert('Failed to add dish.');
@@ -329,6 +393,7 @@ async function saveDishToFirestore() {
         alert('Dish name cannot be empty.');
     }
 }
+
 
 
 async function deleteDish(dishId) {
@@ -384,6 +449,8 @@ if (openEditModalButton) {
         populateTagDropdowns();
     });
 }
+
+
 
 async function openEditModal(dishId, dishName, ingredients, tags) {
     editDishModal.style.display = 'block';
@@ -660,13 +727,15 @@ if (editAvailableTagsSelect) {
     });
 }
 
+const addDishWithIngredientsButton = document.getElementById('addDishWithIngredientsButton');
+
 if (addDishWithIngredientsButton) {
     addDishWithIngredientsButton.addEventListener('click', () => {
         const ingredientName = newDishIngredientNameInput.value.trim();
         const ingredientQuantity = newDishIngredientQuantityInput.value.trim();
         if (ingredientName && ingredientQuantity) {
-            currentIngredients.push({ name: ingredientName, quantity: ingredientQuantity });
-            renderIngredientsList();
+            currentIngredients.push({ name: ingredientName.toLowerCase().trim(), quantity: ingredientQuantity });
+            renderIngredientsList(); // <---- This function needs to be defined before this point
             newDishIngredientNameInput.value = '';
             newDishIngredientQuantityInput.value = '';
         } else {
@@ -717,15 +786,21 @@ if (editAddIngredientButton) {
     editAddIngredientButton.addEventListener('click', () => {
         const ingredientName = editNewIngredientNameInput.value.trim();
         const ingredientQuantity = editNewIngredientQuantityInput.value.trim();
-        if (ingredientName && ingredientQuantity && currentDishIdInput.value) {
-            const newIngredientId = `temp-${Date.now()}`; // Temporary ID for new ingredients
-            editingIngredients[newIngredientId] = { name: ingredientName, quantity: ingredientQuantity, haveIt: false };
+        if (ingredientName && ingredientQuantity) {
+            if (currentlyEditingIngredientKey) {
+                // Update existing ingredient
+                editingIngredients[currentlyEditingIngredientKey].name = ingredientName.toLowerCase().trim(); // Convert to lowercase here
+                editingIngredients[currentlyEditingIngredientKey].quantity = ingredientQuantity;
+                currentlyEditingIngredientKey = null; // Clear the editing key
+            } else {
+                // Add new ingredient
+                const newIngredientId = `temp-${Date.now()}`;
+                editingIngredients[newIngredientId] = { name: ingredientName.toLowerCase().trim(), quantity: ingredientQuantity, haveIt: false }; // Convert to lowercase here
+            }
             renderEditIngredientsList();
             editNewIngredientNameInput.value = '';
             editNewIngredientQuantityInput.value = '';
-        } else {
-            alert('Please enter both ingredient name and quantity.');
-        }
+        } 
     });
 }
 
