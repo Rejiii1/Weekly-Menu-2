@@ -1374,6 +1374,119 @@ margin-left: 10px;;
   color: #b71c1c;
 }
 
+/* --- Grocery List Actions (Clear Button) --- */
+.grocery-list-actions {
+  text-align: center; /* Center the button */
+  margin-bottom: 20px; /* Add space below the button */
+}
+
+.grocery-list-actions #clearGroceryList {
+  padding: 10px 15px;
+  background-color: #dc3545; /* Reddish button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.grocery-list-actions #clearGroceryList:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* --- Grocery List Container and List --- */
+.grocery-list-container {
+  /* No container needed, let the ul take full width */
+  flex-grow: 1; /* Allow the list to take up available vertical space */
+  margin-bottom: 80px; /* IMPORTANT: Make space for fixed bottom navigation */
+  overflow-y: auto; /* Make the list scrollable if it gets too long */
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+#groceryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#groceryList li {
+  padding: 12px 15px;
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 1.3em;
+  display: flex; /* Use flexbox for list item content */
+  align-items: center; /* Vertically center the text and remove button */
+  justify-content: space-between; /* Space between text and button */
+  border: 1px solid #ddd;
+}
+
+
+
+#groceryList li button {
+  padding: 5px 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+#groceryList li button:hover {
+  background-color: #c82333;
+}
+
+/* --- New Checkbox Styles --- */
+#groceryList li input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  appearance: none;
+  border: 2px solid #ccc;
+  border-radius: 50%; /* Make it circular */
+  background-color: white;
+  transition: all 0.3s ease;
+  outline: none;
+  margin-left: 10px;
+}
+
+#groceryList li input[type="checkbox"]:checked {
+  background-color: #00274C; /* Change to blue */
+  border-color: #00274C; /* Change to blue */
+}
+
+#groceryList li input[type="checkbox"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 12px;
+  height: 21px;
+  border: 4px solid #FFCB05; /* Change to yellow */
+  border-top: none;
+  border-left: none;
+}
+
+#groceryList li input[type="checkbox"]:hover {
+  border-color: #00274C; /* Change to blue */
+}
+
+#groceryList li input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px rgba(0, 39, 76, 0.5); /* Use a blue shadow */
+}
+
+/* Focus effect */
+#groceryList li input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px rgba(0, 39, 76, 0.5); /* Add a blue shadow for focus */
+}
 /* on phone specific */
 
   @media (max-width: 768px) {

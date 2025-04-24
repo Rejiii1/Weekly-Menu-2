@@ -116,9 +116,9 @@ function displayGroceryList(groceryList) {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.classList.add('grocery-item-checkbox');
-            checkbox.dataset.ingredientName = item.name; // Store ingredient name
-            checkbox.dataset.dishIds = JSON.stringify(item.dishIds); // Store array of dish IDs
-            checkbox.checked = item.haveIt || false; // Set initial checked state
+            checkbox.dataset.ingredientName = item.name;
+            checkbox.dataset.dishIds = JSON.stringify(item.dishIds);
+            checkbox.checked = item.haveIt || false;
 
             checkbox.addEventListener('change', (event) => {
                 const ingredientName = event.target.dataset.ingredientName;
@@ -146,10 +146,12 @@ function displayGroceryList(groceryList) {
                 }
             }
 
-            listItem.appendChild(checkbox);
             const textSpan = document.createElement('span');
             textSpan.textContent = displayText + quantityAndUnit;
+
+            //  Append in the REVERSE order: textSpan first, then checkbox
             listItem.appendChild(textSpan);
+            listItem.appendChild(checkbox);
             groceryListContainer.appendChild(listItem);
         });
     }
