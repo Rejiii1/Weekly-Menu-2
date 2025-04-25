@@ -1,4 +1,4 @@
-<style>
+
 /* style.css */
 
 /* Style for the clickable Dish Library heading */
@@ -232,7 +232,7 @@ header button:hover {
 
 }
 .select2-container--default .select2-results>.select2-results__options {
-  max-height: 325px !important; /* Set a max height for the dropdown */
+  max-height: 320px !important; /* Set a max height for the dropdown */
   overflow-y: auto  !important; /* Enable vertical scrolling */
   transform: translateY(-45px)!important;
 }
@@ -240,8 +240,6 @@ header button:hover {
   background-color: #00274C !important; /* Active icon color */
   color: #FFCB05  !important; /* Active icon color */
 }
-
-.
 
 .close-button {
   position: absolute;
@@ -1613,6 +1611,3 @@ margin-left: 10px;;
 
 
 }
-
-
-</style>
