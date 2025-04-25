@@ -1489,6 +1489,29 @@ margin-left: 10px;;
 }
 /* on phone specific */
 
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  padding: 0;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.calendar-weekdays div {
+  padding: 0;
+  background-color: #f9f9f9; /* Default weekday color */
+  color: #333;
+}
+
+/* Highlight weekends with a slightly lighter gray */
+.calendar-weekdays div:first-child, /* Sunday */
+.calendar-weekdays div:last-child { /* Saturday */
+  background-color: #eaeaea;
+  color: #777;
+}
+
   @media (max-width: 768px) {
     /* Adjust calendar size for mobile */
     body {
