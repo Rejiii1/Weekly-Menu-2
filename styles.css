@@ -1150,6 +1150,7 @@ margin-left: 10px;;
     flex-direction: column;
     gap: 5px; /* Reduce gap between elements */
     margin-bottom: 150px;
+    height: auto;
     
 }
 
